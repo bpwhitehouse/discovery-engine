@@ -2,7 +2,6 @@ import { Metadata } from 'next'
 import { createClient } from '@sanity/client'
 import { notFound } from 'next/navigation'
 
-// Safe helper to instantiate the Sanity client during static build evaluation
 function getSanityClient() {
   return createClient({
     projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'tn8roucm',
@@ -92,7 +91,6 @@ export default async function ProductPage({
     notFound()
   }
 
-  // Generate structured JSON-LD for Search & LLM Crawlers
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -117,13 +115,11 @@ export default async function ProductPage({
 
   return (
     <main className="max-w-4xl mx-auto px-6 py-12">
-      {/* Inject Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Header Info */}
       <div className="mb-8 border-b pb-6 border-slate-800">
         <div className="flex items-center gap-3 text-sm text-sky-400 font-medium mb-2">
           <span>{product.category || 'General'}</span>
@@ -133,12 +129,10 @@ export default async function ProductPage({
         <h1 className="text-4xl font-extrabold text-white tracking-tight">{product.title}</h1>
       </div>
 
-      {/* Main Body */}
       <section className="prose prose-invert max-w-none mb-12">
         <p className="text-lg text-slate-300 leading-relaxed">{product.description}</p>
       </section>
 
-      {/* FAQ Section */}
       {product.faqs && product.faqs.length > 0 && (
         <section className="mt-12 border-t border-slate-800 pt-8">
           <h2 className="text-2xl font-bold text-white mb-6">Frequently Asked Questions</h2>
