@@ -19,7 +19,8 @@
     "openai": "^6.49.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "sanity": "^3.99.0"
+    "sanity": "^3.99.0",
+    "styled-components": "^6.5.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
