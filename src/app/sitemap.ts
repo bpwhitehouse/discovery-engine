@@ -9,7 +9,7 @@ const sanity = createClient({
 })
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://discovery-engine-plum-three.vercel.app/'
 
   const products = await sanity.fetch(`*[_type == "product"]{ "slug": slug.current, _updatedAt }`)
 

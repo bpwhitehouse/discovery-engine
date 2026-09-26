@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const product = await getProduct(params.slug)
   if (!product) return {}
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://localhost:3000'
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'hhttps://discovery-engine-plum-three.vercel.app/'
 
   return {
     title: `${product.title} | Discovery Engine`,
