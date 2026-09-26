@@ -1,0 +1,33 @@
+{
+  "name": "discovery-engine",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^3.0.118",
+    "@pinecone-database/pinecone": "^6.1.4",
+    "@sanity/client": "^7.27.0",
+    "@vercel/og": "^1.0.0",
+    "ai": "^6.0.292",
+    "next": "16.3.6",
+    "next-sanity": "^9.12.3",
+    "openai": "^6.49.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.6",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
