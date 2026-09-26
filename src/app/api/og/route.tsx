@@ -22,7 +22,7 @@ export async function GET(request: Request) {
           fontFamily: 'sans-serif',
         }}
       >
-        <div style={{ fontSize: 20, color: '#38bdf8', marginBottom: 12, tracking: '0.1em' }}>
+        <div style={{ fontSize: 20, color: '#38bdf8', marginBottom: 12, letterSpacing: '0.1em' }}>
           LAB DISCOVERY ENGINE
         </div>
         <div style={{ fontSize: 52, fontWeight: 'bold', lineHeight: 1.2 }}>{title}</div>
