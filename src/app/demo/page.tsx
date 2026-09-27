@@ -207,7 +207,7 @@ export default function DiscoveryEngineDemo() {
             <div className="flex flex-wrap items-center gap-2">
               <button 
                 onClick={() => runPreset('Chemical storage and fume extraction systems')} 
-                className="text-xs bg-slate-950 hover:bg-sky-900 hover:text-white border border-sky-300 text-slate-100 px-3 py-1.5 rounded-md font-mono transition-all font-semibold"
+                className="text-xs bg-pink-200 hover:bg-sky-900 hover:text-white border border-sky-300 text-slate-100 px-3 py-1.5 rounded-md font-mono transition-all font-semibold"
               >
                 "Chemical storage &amp; fume extraction"
               </button>
