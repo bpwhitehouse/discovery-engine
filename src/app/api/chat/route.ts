@@ -24,6 +24,9 @@ export async function POST(req: Request) {
     includeMetadata: true,
   })
 
+  //debug log:
+  console.log('Pinecone Raw Matches:', JSON.stringify(searchResults.matches, null, 2))
+
   const contextText = searchResults.matches
     .map((match) => match.metadata?.text)
     .join('\n---\n')
