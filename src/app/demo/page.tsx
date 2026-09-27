@@ -200,7 +200,7 @@ export default function DiscoveryEngineDemo() {
 
           {/* High-Contrast Instruction Callout Box */}
           <div className="bg-pink-200 border-2 border-sky-400 rounded-lg p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
-            <div className="flex items-center gap-2 text-sky-200 text-xs font-semibold">
+            <div className="flex items-center gap-2 text-slate-950 text-xs font-semibold">
               <span className="flex h-2.5 w-2.5 rounded-full bg-sky-400 animate-pulse"></span>
               <span><strong>Instruction:</strong> Select a sample prompt to test vector search on product data:</span>
             </div>
