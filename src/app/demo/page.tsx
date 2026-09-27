@@ -181,6 +181,86 @@ export default function DiscoveryEngineDemo() {
             )}
           </div>
 
+export function SearchPipelineVisualizer({ activeStep = 0, latency = { embedding: 0, vector: 0, cms: 0 } }) {
+  const steps = [
+    {
+      num: '01',
+      title: 'User Prompt',
+      tech: 'Next.js API',
+      desc: 'Captures intent & query text',
+      time: null,
+    },
+    {
+      num: '02',
+      title: 'Vectorize',
+      tech: 'OpenAI Embeddings',
+      desc: 'Translates query into 1,536 math dimensions',
+      time: latency.embedding ? `${latency.embedding}ms` : null,
+    },
+    {
+      num: '03',
+      title: 'Similarity Match',
+      tech: 'Pinecone Vector DB',
+      desc: 'Finds nearest product coordinates',
+      time: latency.vector ? `${latency.vector}ms` : null,
+    },
+    {
+      num: '04',
+      title: 'Grounded Answer',
+      tech: 'GPT-4o Mini (RAG)',
+      desc: 'Generates response strictly from CMS data',
+      time: latency.cms ? `${latency.cms}ms` : null,
+    },
+  ];
+
+  return (
+    <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 my-6">
+      <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">
+        Live Query Processing Pipeline
+      </h3>
+      
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-3 relative">
+        {steps.map((step, idx) => {
+          const isActive = activeStep === idx + 1;
+          const isDone = activeStep > idx + 1;
+
+          return (
+            <div 
+              key={step.num}
+              className={`p-3.5 rounded-lg border transition-all ${
+                isActive 
+                  ? 'bg-sky-950/40 border-sky-500/80 shadow-lg shadow-sky-500/10' 
+                  : isDone 
+                  ? 'bg-slate-800/80 border-emerald-500/50' 
+                  : 'bg-slate-800/30 border-slate-800 text-slate-500'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-1.5">
+                <span className={`text-xs font-mono font-bold ${
+                  isActive ? 'text-sky-400' : isDone ? 'text-emerald-400' : 'text-slate-600'
+                }`}>
+                  {step.num}
+                </span>
+                {step.time && (
+                  <span className="text-[10px] font-mono bg-slate-900 px-1.5 py-0.5 rounded text-slate-400">
+                    {step.time}
+                  </span>
+                )}
+              </div>
+              <h4 className={`text-sm font-semibold mb-0.5 ${isActive || isDone ? 'text-slate-100' : 'text-slate-500'}`}>
+                {step.title}
+              </h4>
+              <p className="text-[11px] font-mono text-sky-400/90 mb-1">{step.tech}</p>
+              <p className="text-[11px] text-slate-400 leading-tight">{step.desc}</p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+
           {/* Engine Diagnostics Sidebar */}
           <div className="bg-slate-800/40 border border-slate-800 rounded-lg p-5 h-fit space-y-4">
             <h3 className="text-sm font-semibold text-slate-300 uppercase tracking-wider border-b border-slate-700/60 pb-2">
