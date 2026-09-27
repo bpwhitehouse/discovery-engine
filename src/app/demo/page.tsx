@@ -2,29 +2,55 @@
 
 import { useState } from 'react';
 
+interface SearchResult {
+  id: string;
+  score: number;
+  title: string;
+  description: string;
+  tags?: string[];
+  sanityId?: string;
+}
+
+interface LatencyBreakdown {
+  embedding: number;
+  vector: number;
+  cms: number;
+}
+
 export default function DiscoveryEngineDemo() {
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState<boolean>(false);
-  const [latency, setLatency] = useState({ embedding: 0, vector: 0, cms: 0 });
+  const [results, setResults] = useState<SearchResult[]>([]);
+  const [hasSearched, setHasSearched] = useState(false);
+  const [latency, setLatency] = useState<LatencyBreakdown>({ embedding: 0, vector: 0, cms: 0 });
+  const [error, setError] = useState<string | null>(null);
 
   const handleSearch = async (searchQuery?: string) => {
     const activeQuery = searchQuery ?? query;
     if (!activeQuery.trim()) return;
 
     setLoading(true);
-    setResults(false);
+    setError(null);
+    setHasSearched(true);
 
-    // Call your actual Next.js API route here:
-    // const res = await fetch(`/api/search?q=${encodeURIComponent(activeQuery)}`);
-    // const data = await res.json();
+    try {
+      const res = await fetch(`/api/search?q=${encodeURIComponent(activeQuery)}`);
+      
+      if (!res.ok) {
+        throw new Error(`Search failed with status ${res.status}`);
+      }
 
-    // Simulated latency & response for demo purposes:
-    setTimeout(() => {
-      setLatency({ embedding: 42, vector: 18, cms: 25 });
+      const data = await res.json();
+
+      setResults(data.matches || []);
+      setLatency(data.latency || { embedding: 0, vector: 0, cms: 0 });
+    } catch (err) {
+      console.error('Error fetching search results:', err);
+      setError('Failed to fetch dynamic vector results. Please try again.');
+      setResults([]);
+    } finally {
       setLoading(false);
-      setResults(true);
-    }, 300);
+    }
   };
 
   const runPreset = (presetQuery: string) => {
@@ -64,9 +90,10 @@ export default function DiscoveryEngineDemo() {
             />
             <button 
               onClick={() => handleSearch()}
-              className="absolute right-2 top-2 bottom-2 bg-sky-500 hover:bg-sky-600 text-slate-950 font-semibold px-4 rounded-md text-sm transition-colors"
+              disabled={loading}
+              className="absolute right-2 top-2 bottom-2 bg-sky-500 hover:bg-sky-600 disabled:bg-sky-800 text-slate-950 font-semibold px-4 rounded-md text-sm transition-colors"
             >
-              Search
+              {loading ? 'Searching...' : 'Search'}
             </button>
           </div>
 
@@ -95,32 +122,55 @@ export default function DiscoveryEngineDemo() {
           <div className="lg:col-span-2 space-y-4">
             {loading && (
               <div className="bg-slate-800/50 border border-slate-800 rounded-lg p-8 text-center animate-pulse">
-                <p className="text-sky-400 text-sm font-medium">Generating embeddings &amp; querying vector index...</p>
+                <p className="text-sky-400 text-sm font-medium">Generating embeddings &amp; querying Pinecone vector index...</p>
               </div>
             )}
 
-            {!loading && !results && (
+            {error && (
+              <div className="bg-red-950/40 border border-red-800/50 rounded-lg p-5 text-center">
+                <p className="text-red-400 text-sm">{error}</p>
+              </div>
+            )}
+
+            {!loading && !hasSearched && !error && (
               <div className="bg-slate-800/50 border border-slate-800 rounded-lg p-8 text-center">
-                <p className="text-slate-400 text-sm">Enter a search query or click a preset above to test semantic similarity retrieval.</p>
+                <p className="text-slate-400 text-sm">Enter a search query or click a preset above to test semantic similarity retrieval from Pinecone.</p>
               </div>
             )}
 
-            {!loading && results && (
-              <div className="bg-slate-800 border border-slate-700/80 rounded-lg p-5 space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-sky-400 bg-sky-950/60 border border-sky-800/50 px-2 py-0.5 rounded">
-                    Score: 0.92 Match
-                  </span>
-                  <span className="text-xs text-slate-400 font-mono">Sanity ID: doc_9824a</span>
-                </div>
-                <h4 className="text-lg font-semibold text-slate-100">AI-Assisted Workflow &amp; Intake Transformation</h4>
-                <p className="text-sm text-slate-300 leading-relaxed">
-                  Spearheaded the product modernisation of core manuscript intake portals. Deployed AI-assisted early triage and automated risk signals to capture metadata and eliminate downstream delays.
-                </p>
-                <div className="flex flex-wrap gap-1.5 pt-2">
-                  <span className="text-xs bg-slate-900 text-slate-400 border border-slate-700/50 px-2 py-0.5 rounded">AI Triage</span>
-                  <span className="text-xs bg-slate-900 text-slate-400 border border-slate-700/50 px-2 py-0.5 rounded">Human-in-the-Loop</span>
-                </div>
+            {!loading && hasSearched && results.length === 0 && !error && (
+              <div className="bg-slate-800/50 border border-slate-800 rounded-lg p-8 text-center">
+                <p className="text-slate-400 text-sm">No vector matches found for your query.</p>
+              </div>
+            )}
+
+            {!loading && results.length > 0 && (
+              <div className="space-y-4">
+                {results.map((item) => (
+                  <div key={item.id} className="bg-slate-800 border border-slate-700/80 rounded-lg p-5 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-semibold uppercase tracking-wider text-sky-400 bg-sky-950/60 border border-sky-800/50 px-2 py-0.5 rounded">
+                        Score: {(item.score * 100).toFixed(0)}% Match
+                      </span>
+                      <span className="text-xs text-slate-400 font-mono">
+                        {item.sanityId ? `Sanity ID: ${item.sanityId}` : `Vector ID: ${item.id}`}
+                      </span>
+                    </div>
+                    <h4 className="text-lg font-semibold text-slate-100">{item.title}</h4>
+                    <p className="text-sm text-slate-300 leading-relaxed">
+                      {item.description}
+                    </p>
+                    {item.tags && item.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 pt-2">
+                        {item.tags.map((tag) => (
+                          <span key={tag} className="text-xs bg-slate-900 text-slate-400 border border-slate-700/50 px-2 py-0.5 rounded">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
             )}
           </div>
@@ -153,7 +203,7 @@ export default function DiscoveryEngineDemo() {
               </div>
             </div>
 
-            {results && (
+            {hasSearched && !loading && (
               <div className="border-t border-slate-700/60 pt-3">
                 <span className="text-xs text-slate-500 block mb-1">Latency Breakdown</span>
                 <div className="text-xs font-mono text-slate-400 space-y-1">
