@@ -66,13 +66,13 @@ export default function DiscoveryEngineDemo() {
         <header className="mb-8 border-b border-slate-800 pb-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-sky-400">Semantic Discovery Engine</h1>
+              <h1 className="text-2xl font-bold text-sky-400">Lab Equipment Semantic Engine</h1>
               <p className="text-slate-400 text-sm mt-1">
-                Real-time vector search powered by Next.js, OpenAI Embeddings, Pinecone &amp; Sanity CMS
+                Real-time vector search across science lab manufacturing products powered by Next.js, OpenAI &amp; Pinecone
               </p>
             </div>
             <span className="w-fit bg-sky-500/10 text-sky-400 border border-sky-500/30 text-xs px-3 py-1 rounded-full font-medium">
-              Live System Demo
+              Live Product Catalog Demo
             </span>
           </div>
         </header>
@@ -85,7 +85,7 @@ export default function DiscoveryEngineDemo() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-              placeholder="Ask a question or search by concept (e.g., 'How do we measure product growth in EdTech?')..." 
+              placeholder="Search lab products by concept (e.g., 'What fume hoods comply with chemical safety standards?')..." 
               className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3.5 pr-28 text-slate-100 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
             />
             <button 
@@ -99,18 +99,24 @@ export default function DiscoveryEngineDemo() {
 
           {/* Preset Buttons */}
           <div className="flex flex-wrap items-center gap-2 mt-3">
-            <span className="text-xs text-slate-400">Try sample prompts:</span>
+            <span className="text-xs text-slate-400">Try sample product prompts:</span>
             <button 
-              onClick={() => runPreset('AI triage and human-in-the-loop workflows')} 
+              onClick={() => runPreset('Chemical storage and fume extraction systems')} 
               className="text-xs bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 px-2.5 py-1 rounded transition-colors"
             >
-              "AI triage and human-in-the-loop workflows"
+              "Chemical storage & fume extraction"
             </button>
             <button 
-              onClick={() => runPreset('Scaling digital platforms and taxonomy')} 
+              onClick={() => runPreset('High-precision analytical balances and laboratory instruments')} 
               className="text-xs bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 px-2.5 py-1 rounded transition-colors"
             >
-              "Scaling digital platforms and taxonomy"
+              "Precision instruments & balances"
+            </button>
+            <button 
+              onClick={() => runPreset('Custom modular lab furniture and ESD workbench setup')} 
+              className="text-xs bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 px-2.5 py-1 rounded transition-colors"
+            >
+              "Modular lab furniture & workbenches"
             </button>
           </div>
         </section>
@@ -122,7 +128,7 @@ export default function DiscoveryEngineDemo() {
           <div className="lg:col-span-2 space-y-4">
             {loading && (
               <div className="bg-slate-800/50 border border-slate-800 rounded-lg p-8 text-center animate-pulse">
-                <p className="text-sky-400 text-sm font-medium">Generating embeddings &amp; querying Pinecone vector index...</p>
+                <p className="text-sky-400 text-sm font-medium">Generating embeddings &amp; querying product vector index...</p>
               </div>
             )}
 
@@ -134,13 +140,13 @@ export default function DiscoveryEngineDemo() {
 
             {!loading && !hasSearched && !error && (
               <div className="bg-slate-800/50 border border-slate-800 rounded-lg p-8 text-center">
-                <p className="text-slate-400 text-sm">Enter a search query or click a preset above to test semantic similarity retrieval from Pinecone.</p>
+                <p className="text-slate-400 text-sm">Enter a search query or click a product preset above to test semantic similarity retrieval from Pinecone.</p>
               </div>
             )}
 
             {!loading && hasSearched && results.length === 0 && !error && (
               <div className="bg-slate-800/50 border border-slate-800 rounded-lg p-8 text-center">
-                <p className="text-slate-400 text-sm">No vector matches found for your query.</p>
+                <p className="text-slate-400 text-sm">No product vector matches found for your query.</p>
               </div>
             )}
 
@@ -153,7 +159,7 @@ export default function DiscoveryEngineDemo() {
                         Score: {(item.score * 100).toFixed(0)}% Match
                       </span>
                       <span className="text-xs text-slate-400 font-mono">
-                        {item.sanityId ? `Sanity ID: ${item.sanityId}` : `Vector ID: ${item.id}`}
+                        {item.sanityId ? `Sanity ID: ${item.sanityId}` : `SKU/ID: ${item.id}`}
                       </span>
                     </div>
                     <h4 className="text-lg font-semibold text-slate-100">{item.title}</h4>
