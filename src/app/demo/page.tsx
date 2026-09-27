@@ -202,7 +202,7 @@ export default function DiscoveryEngineDemo() {
           <div className="bg-pink-200 border-2 border-sky-400 rounded-lg p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
             <div className="flex items-center gap-2 text-slate-950 text-xs font-semibold">
               <span className="flex h-2.5 w-2.5 rounded-full bg-sky-400 animate-pulse"></span>
-              <span><strong>Instruction:</strong> Select a sample prompt to test vector search on product data:</span>
+              <span><strong>Instruction:</strong> Enter a search query or click a search prompt preset to test semantic similarity retrieval from Pinecone:</span>
             </div>
             <div className="flex flex-wrap items-center gap-2">
               <button 
@@ -249,7 +249,7 @@ export default function DiscoveryEngineDemo() {
 
             {!loading && !hasSearched && !error && (
               <div className="bg-slate-900 border border-slate-700 rounded-lg p-8 text-center">
-                <p className="text-slate-200 text-sm">Enter a search query or click a product preset above to test semantic similarity retrieval from Pinecone.</p>
+                <p className="text-slate-200 text-sm">Search result matches will show here.</p>
               </div>
             )}
 
