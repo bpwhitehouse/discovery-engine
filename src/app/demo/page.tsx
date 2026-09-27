@@ -114,7 +114,7 @@ export default function DiscoveryEngineDemo() {
                   <span className="text-xs text-slate-400 font-mono">Sanity ID: doc_9824a</span>
                 </div>
                 <h4 className="text-lg font-semibold text-slate-100">AI-Assisted Workflow &amp; Intake Transformation</h4>
-                <p class="text-sm text-slate-300 leading-relaxed">
+                <p className="text-sm text-slate-300 leading-relaxed">
                   Spearheaded the product modernisation of core manuscript intake portals. Deployed AI-assisted early triage and automated risk signals to capture metadata and eliminate downstream delays.
                 </p>
                 <div className="flex flex-wrap gap-1.5 pt-2">
@@ -132,7 +132,7 @@ export default function DiscoveryEngineDemo() {
             </h3>
             
             <div>
-              <span class="text-xs text-slate-500 block mb-1">Embedding Model</span>
+              <span className="text-xs text-slate-500 block mb-1">Embedding Model</span>
               <span className="text-xs font-mono bg-slate-900 border border-slate-800 text-sky-400 px-2 py-1 rounded block">
                 text-embedding-3-small (1536 dim)
               </span>
