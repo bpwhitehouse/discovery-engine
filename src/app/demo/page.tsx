@@ -162,9 +162,17 @@ export default function DiscoveryEngineDemo() {
                 Real-time vector search across science lab manufacturing products powered by Next.js, OpenAI &amp; Pinecone
               </p>
             </div>
-            <span className="w-fit bg-sky-950 text-sky-300 border border-sky-400 text-xs px-3 py-1 rounded-full font-semibold">
-              Live Product Catalog Demo
-            </span>
+            
+            {/* How it Works Anchor Button */}
+            <a 
+              href="#how-it-works" 
+              className="w-fit inline-flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-sky-300 border border-slate-700 hover:border-sky-400 text-xs px-3 py-1.5 rounded-full font-semibold transition-all shadow-sm group"
+            >
+              <span>How it Works</span>
+              <svg className="w-3.5 h-3.5 text-sky-400 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </a>
           </div>
         </header>
 
@@ -323,6 +331,53 @@ export default function DiscoveryEngineDemo() {
           </div>
 
         </div>
+
+        {/* How It Works Explainer Section */}
+        <section id="how-it-works" className="mt-16 border-t border-slate-700 pt-10 pb-6 text-slate-100">
+          <div className="mb-8">
+            <h2 className="text-xl font-bold text-sky-300">How It Works</h2>
+            <p className="text-slate-300 text-sm mt-1">An automated pipeline connecting content, vector search, and AI generation.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Step 1 */}
+            <div className="bg-slate-900 border border-slate-700 rounded-lg p-5 space-y-2">
+              <div className="text-xs font-mono font-bold text-sky-300">STEP 01</div>
+              <h3 className="text-base font-semibold text-white">Content Updates</h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                When an editor creates, edits, or deletes product details in Sanity Studio, Sanity automatically sends a webhook alert to our server.
+              </p>
+            </div>
+
+            {/* Step 2 */}
+            <div className="bg-slate-900 border border-slate-700 rounded-lg p-5 space-y-2">
+              <div className="text-xs font-mono font-bold text-sky-300">STEP 02</div>
+              <h3 className="text-base font-semibold text-white">AI Translation</h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Our backend sends the updated text to OpenAI, converting words into a list of mathematical numbers (vector coordinates) representing semantic meaning.
+              </p>
+            </div>
+
+            {/* Step 3 */}
+            <div className="bg-slate-900 border border-slate-700 rounded-lg p-5 space-y-2">
+              <div className="text-xs font-mono font-bold text-sky-300">STEP 03</div>
+              <h3 className="text-base font-semibold text-white">Vector Storage</h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Those mathematical coordinates are saved in Pinecone—a specialized vector database built to compare data meaning at high speed.
+              </p>
+            </div>
+
+            {/* Step 4 */}
+            <div className="bg-slate-900 border border-slate-700 rounded-lg p-5 space-y-2">
+              <div className="text-xs font-mono font-bold text-sky-300">STEP 04</div>
+              <h3 className="text-base font-semibold text-white">Smart Search &amp; Answers</h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                User queries are converted into coordinates, matched in Pinecone, and passed to OpenAI to write an accurate, grounded answer.
+              </p>
+            </div>
+          </div>
+        </section>
+
       </div>
     </div>
   );
