@@ -199,7 +199,7 @@ export default function DiscoveryEngineDemo() {
           </div>
 
           {/* High-Contrast Instruction Callout Box */}
-          <div className="bg-slate-900 border-2 border-sky-400 rounded-lg p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
+          <div className="bg-pink-200 border-2 border-sky-400 rounded-lg p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
             <div className="flex items-center gap-2 text-sky-200 text-xs font-semibold">
               <span className="flex h-2.5 w-2.5 rounded-full bg-sky-400 animate-pulse"></span>
               <span><strong>Instruction:</strong> Select a sample prompt to test vector search on product data:</span>
@@ -207,7 +207,7 @@ export default function DiscoveryEngineDemo() {
             <div className="flex flex-wrap items-center gap-2">
               <button 
                 onClick={() => runPreset('Chemical storage and fume extraction systems')} 
-                className="text-xs bg-pink-200 hover:bg-sky-900 hover:text-white border border-sky-300 text-slate-100 px-3 py-1.5 rounded-md font-mono transition-all font-semibold"
+                className="text-xs bg-slate-950 hover:bg-sky-900 hover:text-white border border-sky-300 text-slate-100 px-3 py-1.5 rounded-md font-mono transition-all font-semibold"
               >
                 "Chemical storage &amp; fume extraction"
               </button>
