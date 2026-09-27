@@ -17,6 +17,93 @@ interface LatencyBreakdown {
   cms: number;
 }
 
+export function SearchPipelineVisualizer({
+  activeStep = 0,
+  latency = { embedding: 0, vector: 0, cms: 0 },
+}: {
+  activeStep?: number;
+  latency?: LatencyBreakdown;
+}) {
+  const steps = [
+    {
+      num: '01',
+      title: 'User Prompt',
+      tech: 'Next.js API',
+      desc: 'Captures intent & query text',
+      time: null,
+    },
+    {
+      num: '02',
+      title: 'Vectorize',
+      tech: 'OpenAI Embeddings',
+      desc: 'Translates query into 1,536 math dimensions',
+      time: latency.embedding ? `${latency.embedding}ms` : null,
+    },
+    {
+      num: '03',
+      title: 'Similarity Match',
+      tech: 'Pinecone Vector DB',
+      desc: 'Finds nearest product coordinates',
+      time: latency.vector ? `${latency.vector}ms` : null,
+    },
+    {
+      num: '04',
+      title: 'Grounded Answer',
+      tech: 'GPT-4o Mini (RAG)',
+      desc: 'Generates response strictly from CMS data',
+      time: latency.cms ? `${latency.cms}ms` : null,
+    },
+  ];
+
+  return (
+    <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 my-6">
+      <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">
+        Live Query Processing Pipeline
+      </h3>
+
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-3 relative">
+        {steps.map((step, idx) => {
+          const isActive = activeStep === idx + 1;
+          const isDone = activeStep > idx + 1;
+
+          return (
+            <div
+              key={step.num}
+              className={`p-3.5 rounded-lg border transition-all ${
+                isActive
+                  ? 'bg-sky-950/40 border-sky-500/80 shadow-lg shadow-sky-500/10'
+                  : isDone
+                  ? 'bg-slate-800/80 border-emerald-500/50'
+                  : 'bg-slate-800/30 border-slate-800 text-slate-500'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-1.5">
+                <span
+                  className={`text-xs font-mono font-bold ${
+                    isActive ? 'text-sky-400' : isDone ? 'text-emerald-400' : 'text-slate-600'
+                  }`}
+                >
+                  {step.num}
+                </span>
+                {step.time && (
+                  <span className="text-[10px] font-mono bg-slate-900 px-1.5 py-0.5 rounded text-slate-400">
+                    {step.time}
+                  </span>
+                )}
+              </div>
+              <h4 className={`text-sm font-semibold mb-0.5 ${isActive || isDone ? 'text-slate-100' : 'text-slate-500'}`}>
+                {step.title}
+              </h4>
+              <p className="text-[11px] font-mono text-sky-400/90 mb-1">{step.tech}</p>
+              <p className="text-[11px] text-slate-400 leading-tight">{step.desc}</p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export default function DiscoveryEngineDemo() {
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
@@ -24,6 +111,7 @@ export default function DiscoveryEngineDemo() {
   const [hasSearched, setHasSearched] = useState(false);
   const [latency, setLatency] = useState<LatencyBreakdown>({ embedding: 0, vector: 0, cms: 0 });
   const [error, setError] = useState<string | null>(null);
+  const [activeStep, setActiveStep] = useState(0);
 
   const handleSearch = async (searchQuery?: string) => {
     const activeQuery = searchQuery ?? query;
@@ -32,10 +120,11 @@ export default function DiscoveryEngineDemo() {
     setLoading(true);
     setError(null);
     setHasSearched(true);
+    setActiveStep(1);
 
     try {
       const res = await fetch(`/api/search?q=${encodeURIComponent(activeQuery)}`);
-      
+
       if (!res.ok) {
         throw new Error(`Search failed with status ${res.status}`);
       }
@@ -44,10 +133,12 @@ export default function DiscoveryEngineDemo() {
 
       setResults(data.matches || []);
       setLatency(data.latency || { embedding: 0, vector: 0, cms: 0 });
+      setActiveStep(4);
     } catch (err) {
       console.error('Error fetching search results:', err);
-      setError('Failed to fetch dynamic vector results. Please try again.');
+      setError('Failed to fetch dynamic vector results. Please ensure your API route (/api/search) is running and configured with Pinecone & OpenAI keys.');
       setResults([]);
+      setActiveStep(0);
     } finally {
       setLoading(false);
     }
@@ -78,7 +169,8 @@ export default function DiscoveryEngineDemo() {
         </header>
 
         {/* Search Section */}
-        <section className="mb-8">
+        <section className="mb-6 space-y-3">
+          {/* White Search Input Bar */}
           <div className="relative">
             <input 
               type="text" 
@@ -86,40 +178,48 @@ export default function DiscoveryEngineDemo() {
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
               placeholder="Search lab products by concept (e.g., 'What fume hoods comply with chemical safety standards?')..." 
-              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3.5 pr-28 text-slate-100 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              className="w-full bg-white border border-slate-300 rounded-lg px-4 py-3.5 pr-28 text-slate-900 placeholder-slate-500 font-medium focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 shadow-sm"
             />
             <button 
               onClick={() => handleSearch()}
               disabled={loading}
-              className="absolute right-2 top-2 bottom-2 bg-sky-500 hover:bg-sky-600 disabled:bg-sky-800 text-slate-950 font-semibold px-4 rounded-md text-sm transition-colors"
+              className="absolute right-2 top-2 bottom-2 bg-sky-500 hover:bg-sky-600 disabled:bg-sky-800 text-slate-950 font-semibold px-4 rounded-md text-sm transition-colors shadow-sm"
             >
               {loading ? 'Searching...' : 'Search'}
             </button>
           </div>
 
-          {/* Preset Buttons */}
-          <div className="flex flex-wrap items-center gap-2 mt-3">
-            <span className="text-xs text-slate-400">Try sample product prompts:</span>
-            <button 
-              onClick={() => runPreset('Chemical storage and fume extraction systems')} 
-              className="text-xs bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 px-2.5 py-1 rounded transition-colors"
-            >
-              "Chemical storage & fume extraction"
-            </button>
-            <button 
-              onClick={() => runPreset('High-precision analytical balances and laboratory instruments')} 
-              className="text-xs bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 px-2.5 py-1 rounded transition-colors"
-            >
-              "Precision instruments & balances"
-            </button>
-            <button 
-              onClick={() => runPreset('Custom modular lab furniture and ESD workbench setup')} 
-              className="text-xs bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 px-2.5 py-1 rounded transition-colors"
-            >
-              "Modular lab furniture & workbenches"
-            </button>
+          {/* Styled Instruction / Explainer Block */}
+          <div className="bg-slate-800/80 border border-sky-500/30 rounded-lg p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-inner">
+            <div className="flex items-center gap-2 text-sky-300 text-xs font-medium">
+              <span className="flex h-2 w-2 rounded-full bg-sky-400 animate-pulse"></span>
+              <span><strong>Instruction:</strong> Select a sample query below to test semantic vector matching against the product database:</span>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <button 
+                onClick={() => runPreset('Chemical storage and fume extraction systems')} 
+                className="text-xs bg-slate-900 hover:bg-sky-950 hover:text-sky-300 border border-sky-500/40 text-slate-200 px-3 py-1.5 rounded-md font-mono transition-all"
+              >
+                "Chemical storage &amp; fume extraction"
+              </button>
+              <button 
+                onClick={() => runPreset('High-precision analytical balances and laboratory instruments')} 
+                className="text-xs bg-slate-900 hover:bg-sky-950 hover:text-sky-300 border border-sky-500/40 text-slate-200 px-3 py-1.5 rounded-md font-mono transition-all"
+              >
+                "Precision instruments &amp; balances"
+              </button>
+              <button 
+                onClick={() => runPreset('Custom modular lab furniture and ESD workbench setup')} 
+                className="text-xs bg-slate-900 hover:bg-sky-950 hover:text-sky-300 border border-sky-500/40 text-slate-200 px-3 py-1.5 rounded-md font-mono transition-all"
+              >
+                "Modular lab furniture &amp; workbenches"
+              </button>
+            </div>
           </div>
         </section>
+
+        {/* Live Visualizer */}
+        <SearchPipelineVisualizer activeStep={activeStep} latency={latency} />
 
         {/* Main Content Area */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -180,86 +280,6 @@ export default function DiscoveryEngineDemo() {
               </div>
             )}
           </div>
-
-export function SearchPipelineVisualizer({ activeStep = 0, latency = { embedding: 0, vector: 0, cms: 0 } }) {
-  const steps = [
-    {
-      num: '01',
-      title: 'User Prompt',
-      tech: 'Next.js API',
-      desc: 'Captures intent & query text',
-      time: null,
-    },
-    {
-      num: '02',
-      title: 'Vectorize',
-      tech: 'OpenAI Embeddings',
-      desc: 'Translates query into 1,536 math dimensions',
-      time: latency.embedding ? `${latency.embedding}ms` : null,
-    },
-    {
-      num: '03',
-      title: 'Similarity Match',
-      tech: 'Pinecone Vector DB',
-      desc: 'Finds nearest product coordinates',
-      time: latency.vector ? `${latency.vector}ms` : null,
-    },
-    {
-      num: '04',
-      title: 'Grounded Answer',
-      tech: 'GPT-4o Mini (RAG)',
-      desc: 'Generates response strictly from CMS data',
-      time: latency.cms ? `${latency.cms}ms` : null,
-    },
-  ];
-
-  return (
-    <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 my-6">
-      <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">
-        Live Query Processing Pipeline
-      </h3>
-      
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-3 relative">
-        {steps.map((step, idx) => {
-          const isActive = activeStep === idx + 1;
-          const isDone = activeStep > idx + 1;
-
-          return (
-            <div 
-              key={step.num}
-              className={`p-3.5 rounded-lg border transition-all ${
-                isActive 
-                  ? 'bg-sky-950/40 border-sky-500/80 shadow-lg shadow-sky-500/10' 
-                  : isDone 
-                  ? 'bg-slate-800/80 border-emerald-500/50' 
-                  : 'bg-slate-800/30 border-slate-800 text-slate-500'
-              }`}
-            >
-              <div className="flex items-center justify-between mb-1.5">
-                <span className={`text-xs font-mono font-bold ${
-                  isActive ? 'text-sky-400' : isDone ? 'text-emerald-400' : 'text-slate-600'
-                }`}>
-                  {step.num}
-                </span>
-                {step.time && (
-                  <span className="text-[10px] font-mono bg-slate-900 px-1.5 py-0.5 rounded text-slate-400">
-                    {step.time}
-                  </span>
-                )}
-              </div>
-              <h4 className={`text-sm font-semibold mb-0.5 ${isActive || isDone ? 'text-slate-100' : 'text-slate-500'}`}>
-                {step.title}
-              </h4>
-              <p className="text-[11px] font-mono text-sky-400/90 mb-1">{step.tech}</p>
-              <p className="text-[11px] text-slate-400 leading-tight">{step.desc}</p>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
 
           {/* Engine Diagnostics Sidebar */}
           <div className="bg-slate-800/40 border border-slate-800 rounded-lg p-5 h-fit space-y-4">
