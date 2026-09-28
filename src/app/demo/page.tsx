@@ -363,7 +363,7 @@ export default function DiscoveryEngineDemo() {
               <div className="text-xs font-mono font-bold text-sky-300">STEP 03</div>
               <h3 className="text-base font-semibold text-white">Vector Storage</h3>
               <p className="text-xs text-slate-300 leading-relaxed">
-                Those mathematical coordinates are saved in Pinecone—a specialized vector database built to compare data meaning at high speed.
+                Those mathematical coordinates are saved in Pinecone—a specialised vector database built to compare data meaning at high speed.
               </p>
             </div>
 
@@ -422,7 +422,7 @@ export default function DiscoveryEngineDemo() {
               </h3>
               <div className="space-y-3 text-xs text-slate-300 leading-relaxed">
                 <p>
-                  <strong className="text-white">Yes.</strong> Sanity acts as a specialized <strong className="text-slate-200">Headless Content Graph</strong> that sits parallel to your primary database.
+                  <strong className="text-white">Yes.</strong> Sanity acts as a specialised <strong className="text-slate-200">Headless Content Graph</strong> that sits parallel to your primary database.
                 </p>
                 <ul className="list-disc pl-5 space-y-2">
                   <li>
@@ -459,14 +459,14 @@ export default function DiscoveryEngineDemo() {
                 <div className="bg-slate-950 border border-slate-800 p-4 rounded-md space-y-1.5">
                   <h4 className="text-sm font-semibold text-white">Public AI Discovery Gateways</h4>
                   <p className="text-xs text-slate-300 leading-relaxed">
-                    The system automatically publishes a standardized <code className="text-sky-300 font-mono">llms.txt</code> file and an AI-specific sitemap, giving third-party AI crawlers a fast, structured gateway to index your full catalog.
+                    The system automatically publishes a standardised <code className="text-sky-300 font-mono">llms.txt</code> file and an AI-specific sitemap, giving third-party AI crawlers a fast, structured gateway to index your full catalog.
                   </p>
                 </div>
 
                 <div className="bg-slate-950 border border-slate-800 p-4 rounded-md space-y-1.5">
                   <h4 className="text-sm font-semibold text-white">Demand-Driven FAQ Generation</h4>
                   <p className="text-xs text-slate-300 leading-relaxed">
-                    The middleware analyzes customer search queries. When interest surges for a specific topic (e.g., "Best centrifuges for cold room assays"), Next.js automatically generates permanent, pre-rendered Q&amp;A pages optimized for Google AI Overviews.
+                    The middleware analyses customer search queries. When interest surges for a specific topic (e.g., "Best centrifuges for cold room assays"), Next.js automatically generates permanent, pre-rendered Q&amp;A pages optimised for Google AI Overviews.
                   </p>
                 </div>
 
