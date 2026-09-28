@@ -378,7 +378,7 @@ export default function DiscoveryEngineDemo() {
           </div>
         </section>
 
-<!-- Integration Overview Section -->
+{/* Integration Overview Section */}
 <section id="integration-overview" class="mt-16 border-t border-slate-700 pt-10 pb-8 text-slate-100">
   <!-- Section Header -->
   <div class="mb-8">
@@ -389,7 +389,7 @@ export default function DiscoveryEngineDemo() {
     </p>
   </div>
 
-  <!-- Deployment Options Cards -->
+  {/* Deployment Options Cards */}
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
     <div class="bg-slate-900 border border-slate-700 rounded-lg p-5 space-y-2">
       <div class="flex items-center gap-2">
@@ -412,10 +412,10 @@ export default function DiscoveryEngineDemo() {
     </div>
   </div>
 
-  <!-- Key Architecture Breakdown -->
+  {/* Key Architecture Breakdown */}
   <div class="space-y-8">
     
-    <!-- Item 1 -->
+    {/* Item 1 -->
     <div class="bg-slate-900 border border-slate-700 rounded-lg p-6 space-y-4">
       <h3 class="text-lg font-bold text-sky-300 flex items-center gap-2">
         <span>1. Do You Still Need Sanity CMS?</span>
@@ -435,7 +435,7 @@ export default function DiscoveryEngineDemo() {
       </div>
     </div>
 
-    <!-- Item 2 -->
+    {/* Item 2 */}
     <div class="bg-slate-900 border border-slate-700 rounded-lg p-6 space-y-4">
       <h3 class="text-lg font-bold text-sky-300">
         2. How the System Powers Your Platform Beyond Search
@@ -475,7 +475,7 @@ export default function DiscoveryEngineDemo() {
 
   </div>
 
-  <!-- Executive Summary Banner -->
+  {/* Executive Summary Banner */}
   <div class="mt-8 bg-sky-950/40 border border-sky-400/30 rounded-lg p-5">
     <div class="text-xs font-mono font-bold text-sky-300 uppercase tracking-wider mb-1">The Executive Summary</div>
     <p class="text-xs text-slate-200 leading-relaxed italic">
