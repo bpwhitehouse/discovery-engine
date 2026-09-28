@@ -380,7 +380,7 @@ export default function DiscoveryEngineDemo() {
 
 {/* Integration Overview Section */}
 <section id="integration-overview" class="mt-16 border-t border-slate-700 pt-10 pb-8 text-slate-100">
-  <!-- Section Header -->
+  {/* Section Header */}
   <div class="mb-8">
     <div class="text-xs font-mono font-bold text-sky-300 uppercase tracking-wider mb-1">Architecture & Deployment</div>
     <h2 class="text-xl font-bold text-white">Integration Overview: Flexible AI Discovery Overlay</h2>
