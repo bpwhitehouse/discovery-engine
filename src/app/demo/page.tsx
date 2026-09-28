@@ -484,6 +484,7 @@ export default function DiscoveryEngineDemo() {
           </div>
 
         </section>
+
           {/* Key Architecture Breakdown */}
           <div className="space-y-8">
             
