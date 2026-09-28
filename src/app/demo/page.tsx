@@ -389,14 +389,6 @@ export default function DiscoveryEngineDemo() {
             </p>
           </div>
 
-{/* Executive Summary Banner */}
-          <div className="mt-8 bg-sky-950/40 border border-sky-400/30 rounded-lg p-5">
-            <div className="text-xs font-mono font-bold text-sky-300 uppercase tracking-wider mb-1">The Executive Summary</div>
-            <p className="text-xs text-slate-200 leading-relaxed italic">
-              "Whether built as a new standalone frontend or deployed as a zero-risk sidecar to your monolithic database, this architecture delivers instant AI search, automated catalog sync, and next-generation search engine visibility."
-            </p>
-          </div>
-
           {/* Deployment Options Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
             <div className="bg-slate-900 border border-slate-700 rounded-lg p-5 space-y-2">
@@ -418,6 +410,14 @@ export default function DiscoveryEngineDemo() {
                 Runs alongside your existing enterprise platform (e.g., ASP.NET, Sitecore) to add natural language search and AI visibility without replacing your legacy database or interrupting operations.
               </p>
             </div>
+          </div>
+
+{/* Executive Summary Banner */}
+          <div className="mt-8 bg-sky-950/40 border border-sky-400/30 rounded-lg p-5">
+            <div className="text-xs font-mono font-bold text-sky-300 uppercase tracking-wider mb-1">The Executive Summary</div>
+            <p className="text-xs text-slate-200 leading-relaxed italic">
+              "Whether built as a new standalone frontend or deployed as a zero-risk sidecar to your monolithic database, this architecture delivers instant AI search, automated catalog sync, and next-generation search engine visibility."
+            </p>
           </div>
 
           {/* Key Architecture Breakdown */}
