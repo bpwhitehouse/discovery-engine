@@ -378,111 +378,111 @@ export default function DiscoveryEngineDemo() {
           </div>
         </section>
 
-{/* Integration Overview Section */}
-<section id="integration-overview" className="mt-16 border-t border-slate-700 pt-10 pb-8 text-slate-100">
-  {/* Section Header */}
-  <div className="mb-8">
-    <div className="text-xs font-mono font-bold text-sky-300 uppercase tracking-wider mb-1">Architecture & Deployment</div>
-    <h2 className="text-xl font-bold text-white">Integration Overview: Flexible AI Discovery Overlay</h2>
-    <p className="text-slate-300 text-sm mt-1 max-w-3xl">
-      This solution operates as a flexible AI discovery engine hosted on Vercel. It can be deployed in two distinct ways depending on your enterprise architecture:
-    </p>
-  </div>
+        {/* Integration Overview Section */}
+        <section id="integration-overview" className="mt-16 border-t border-slate-700 pt-10 pb-8 text-slate-100">
+          {/* Section Header */}
+          <div className="mb-8">
+            <div className="text-xs font-mono font-bold text-sky-300 uppercase tracking-wider mb-1">Architecture &amp; Deployment</div>
+            <h2 className="text-xl font-bold text-white">Integration Overview: Flexible AI Discovery Overlay</h2>
+            <p className="text-slate-300 text-sm mt-1 max-w-3xl">
+              This solution operates as a flexible AI discovery engine hosted on Vercel. It can be deployed in two distinct ways depending on your enterprise architecture:
+            </p>
+          </div>
 
-  {/* Deployment Options Cards */}
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
-    <div className="bg-slate-900 border border-slate-700 rounded-lg p-5 space-y-2">
-      <div className="flex items-center gap-2">
-        <span className="h-2 w-2 rounded-full bg-sky-400"></span>
-        <h3 className="text-base font-semibold text-white">Standalone Deployment</h3>
-      </div>
-      <p className="text-xs text-slate-300 leading-relaxed">
-        Serves as a complete, self-contained AI web solution paired with any frontend rendering engine or CMS (e.g., Next.js, WordPress, or Drupal).
-      </p>
-    </div>
+          {/* Deployment Options Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+            <div className="bg-slate-900 border border-slate-700 rounded-lg p-5 space-y-2">
+              <div className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-sky-400"></span>
+                <h3 className="text-base font-semibold text-white">Standalone Deployment</h3>
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Serves as a complete, self-contained AI web solution paired with any frontend rendering engine or CMS (e.g., Next.js, WordPress, or Drupal).
+              </p>
+            </div>
 
-    <div className="bg-slate-900 border border-slate-700 rounded-lg p-5 space-y-2">
-      <div className="flex items-center gap-2">
-        <span className="h-2 w-2 rounded-full bg-emerald-400"></span>
-        <h3 className="text-base font-semibold text-white">Monolithic Sidecar</h3>
-      </div>
-      <p className="text-xs text-slate-300 leading-relaxed">
-        Runs alongside your existing enterprise platform (e.g., ASP.NET, Sitecore) to add natural language search and AI visibility without replacing your legacy database or interrupting operations.
-      </p>
-    </div>
-  </div>
+            <div className="bg-slate-900 border border-slate-700 rounded-lg p-5 space-y-2">
+              <div className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-emerald-400"></span>
+                <h3 className="text-base font-semibold text-white">Monolithic Sidecar</h3>
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Runs alongside your existing enterprise platform (e.g., ASP.NET, Sitecore) to add natural language search and AI visibility without replacing your legacy database or interrupting operations.
+              </p>
+            </div>
+          </div>
 
-  {/* Key Architecture Breakdown */}
-  <div className="space-y-8">
-    
-    {/* Item 1 */}
-    <div className="bg-slate-900 border border-slate-700 rounded-lg p-6 space-y-4">
-      <h3 className="text-lg font-bold text-sky-300 flex items-center gap-2">
-        <span>1. Do You Still Need Sanity CMS?</span>
-      </h3>
-      <div className="space-y-3 text-xs text-slate-300 leading-relaxed">
-        <p>
-          <strong className="text-white">Yes.</strong> Sanity acts as a specialized <strong class="text-slate-200">Headless Content Graph</strong> that sits parallel to your primary database.
-        </p>
-        <ul className="list-disc pl-5 space-y-2">
-          <li>
-            <strong className="text-slate-200">Role:</strong> Sanity stores complex, interconnected product data (e.g., Equipment &rarr; Accessories &rarr; Applications) using flexible GROQ queries.
-          </li>
-          <li>
-            <strong className="text-slate-200">Automated Catalog Syncing:</strong> Your existing database remains the master record. Whenever an editor updates a product, a background job automatically syncs the changes to Sanity via API. Sanity then immediately refreshes Pinecone (for AI intent matching) and Vercel (for high-speed delivery) in milliseconds.
-          </li>
-        </ul>
-      </div>
-    </div>
+          {/* Key Architecture Breakdown */}
+          <div className="space-y-8">
+            
+            {/* Item 1 */}
+            <div className="bg-slate-900 border border-slate-700 rounded-lg p-6 space-y-4">
+              <h3 className="text-lg font-bold text-sky-300 flex items-center gap-2">
+                <span>1. Do You Still Need Sanity CMS?</span>
+              </h3>
+              <div className="space-y-3 text-xs text-slate-300 leading-relaxed">
+                <p>
+                  <strong className="text-white">Yes.</strong> Sanity acts as a specialized <strong className="text-slate-200">Headless Content Graph</strong> that sits parallel to your primary database.
+                </p>
+                <ul className="list-disc pl-5 space-y-2">
+                  <li>
+                    <strong className="text-slate-200">Role:</strong> Sanity stores complex, interconnected product data (e.g., Equipment &rarr; Accessories &rarr; Applications) using flexible GROQ queries.
+                  </li>
+                  <li>
+                    <strong className="text-slate-200">Automated Catalog Syncing:</strong> Your existing database remains the master record. Whenever an editor updates a product, a background job automatically syncs the changes to Sanity via API. Sanity then immediately refreshes Pinecone (for AI intent matching) and Vercel (for high-speed delivery) in milliseconds.
+                  </li>
+                </ul>
+              </div>
+            </div>
 
-    {/* Item 2 */}
-    <div className="bg-slate-900 border border-slate-700 rounded-lg p-6 space-y-4">
-      <h3 className="text-lg font-bold text-sky-300">
-        2. How the System Powers Your Platform Beyond Search
-      </h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-        
-        <div className="bg-slate-950 border border-slate-800 p-4 rounded-md space-y-1.5">
-          <h4 className="text-sm font-semibold text-white">Plug-and-Play AI Search Experience</h4>
-          <p className="text-xs text-slate-300 leading-relaxed">
-            Embed the search UI onto your existing site using a single line of JavaScript (like Google Analytics) or via a fast CDN routing rule.
-          </p>
-        </div>
+            {/* Item 2 */}
+            <div className="bg-slate-900 border border-slate-700 rounded-lg p-6 space-y-4">
+              <h3 className="text-lg font-bold text-sky-300">
+                2. How the System Powers Your Platform Beyond Search
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                
+                <div className="bg-slate-950 border border-slate-800 p-4 rounded-md space-y-1.5">
+                  <h4 className="text-sm font-semibold text-white">Plug-and-Play AI Search Experience</h4>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    Embed the search UI onto your existing site using a single line of JavaScript (like Google Analytics) or via a fast CDN routing rule.
+                  </p>
+                </div>
 
-        <div className="bg-slate-950 border border-slate-800 p-4 rounded-md space-y-1.5">
-          <h4 className="text-sm font-semibold text-white">Embedded JSON-LD Schemas for AI Engines</h4>
-          <p className="text-xs text-slate-300 leading-relaxed">
-            Vercel serves an edge-cached API (<code class="text-sky-300 font-mono">GET /api/schema/[id]</code>) that your legacy site fetches and injects directly into its HTML <code class="text-sky-300 font-mono">&lt;head&gt;</code> tag. This ensures external AI tools (ChatGPT, Perplexity) accurately parse and cite your catalog.
-          </p>
-        </div>
+                <div className="bg-slate-950 border border-slate-800 p-4 rounded-md space-y-1.5">
+                  <h4 className="text-sm font-semibold text-white">Embedded JSON-LD Schemas for AI Engines</h4>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    Vercel serves an edge-cached API (<code className="text-sky-300 font-mono">GET /api/schema/[id]</code>) that your legacy site fetches and injects directly into its HTML <code className="text-sky-300 font-mono">&lt;head&gt;</code> tag. This ensures external AI tools (ChatGPT, Perplexity) accurately parse and cite your catalog.
+                  </p>
+                </div>
 
-        <div className="bg-slate-950 border border-slate-800 p-4 rounded-md space-y-1.5">
-          <h4 className="text-sm font-semibold text-white">Public AI Discovery Gateways</h4>
-          <p className="text-xs text-slate-300 leading-relaxed">
-            The system automatically publishes a standardized <code class="text-sky-300 font-mono">llms.txt</code> file and an AI-specific sitemap, giving third-party AI crawlers a fast, structured gateway to index your full catalog.
-          </p>
-        </div>
+                <div className="bg-slate-950 border border-slate-800 p-4 rounded-md space-y-1.5">
+                  <h4 className="text-sm font-semibold text-white">Public AI Discovery Gateways</h4>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    The system automatically publishes a standardized <code className="text-sky-300 font-mono">llms.txt</code> file and an AI-specific sitemap, giving third-party AI crawlers a fast, structured gateway to index your full catalog.
+                  </p>
+                </div>
 
-        <div className="bg-slate-950 border border-slate-800 p-4 rounded-md space-y-1.5">
-          <h4 className="text-sm font-semibold text-white">Demand-Driven FAQ Generation</h4>
-          <p className="text-xs text-slate-300 leading-relaxed">
-            The middleware analyzes customer search queries. When interest surges for a specific topic (e.g., "Best centrifuges for cold room assays"), Next.js automatically generates permanent, pre-rendered Q&amp;A pages optimized for Google AI Overviews.
-          </p>
-        </div>
+                <div className="bg-slate-950 border border-slate-800 p-4 rounded-md space-y-1.5">
+                  <h4 className="text-sm font-semibold text-white">Demand-Driven FAQ Generation</h4>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    The middleware analyzes customer search queries. When interest surges for a specific topic (e.g., "Best centrifuges for cold room assays"), Next.js automatically generates permanent, pre-rendered Q&amp;A pages optimized for Google AI Overviews.
+                  </p>
+                </div>
 
-      </div>
-    </div>
+              </div>
+            </div>
 
-  </div>
+          </div>
 
-  {/* Executive Summary Banner */}
-  <div className="mt-8 bg-sky-950/40 border border-sky-400/30 rounded-lg p-5">
-    <div className="text-xs font-mono font-bold text-sky-300 uppercase tracking-wider mb-1">The Executive Summary</div>
-    <p className="text-xs text-slate-200 leading-relaxed italic">
-      "Whether built as a new standalone frontend or deployed as a zero-risk sidecar to your monolithic database, this architecture delivers instant AI search, automated catalog sync, and next-generation search engine visibility."
-    </p>
-  </div>
-</section>
+          {/* Executive Summary Banner */}
+          <div className="mt-8 bg-sky-950/40 border border-sky-400/30 rounded-lg p-5">
+            <div className="text-xs font-mono font-bold text-sky-300 uppercase tracking-wider mb-1">The Executive Summary</div>
+            <p className="text-xs text-slate-200 leading-relaxed italic">
+              "Whether built as a new standalone frontend or deployed as a zero-risk sidecar to your monolithic database, this architecture delivers instant AI search, automated catalog sync, and next-generation search engine visibility."
+            </p>
+          </div>
+        </section>
 
       </div>
     </div>
