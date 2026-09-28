@@ -415,7 +415,7 @@ export default function DiscoveryEngineDemo() {
   {/* Key Architecture Breakdown */}
   <div class="space-y-8">
     
-    {/* Item 1 -->
+    {/* Item 1 */}
     <div class="bg-slate-900 border border-slate-700 rounded-lg p-6 space-y-4">
       <h3 class="text-lg font-bold text-sky-300 flex items-center gap-2">
         <span>1. Do You Still Need Sanity CMS?</span>
