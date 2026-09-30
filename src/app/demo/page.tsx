@@ -134,7 +134,7 @@ export default function DiscoveryEngineDemo() {
       setResults(data.matches || []);
       setLatency(data.latency || { embedding: 0, vector: 0, cms: 0 });
       setActiveStep(4);
-    } catch (err) {
+    } catch (err: unknown) {
       console.error('Error fetching search results:', err);
       setError('Failed to fetch dynamic vector results. Please ensure your API route (/api/search) is running and configured with Pinecone & OpenAI keys.');
       setResults([]);
@@ -209,7 +209,7 @@ export default function DiscoveryEngineDemo() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-		suppressHydrationWarning={true}
+              suppressHydrationWarning={true}
               placeholder="Search lab products by concept (e.g., 'What fume hoods comply with chemical safety standards?')..."
               className="w-full bg-white border border-slate-300 rounded-lg px-4 py-3.5 pr-32 text-slate-900 placeholder-slate-400 font-medium focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 shadow-sm"
               aria-label="Search laboratory products"
@@ -234,19 +234,19 @@ export default function DiscoveryEngineDemo() {
                 onClick={() => runPreset('Chemical storage and fume extraction systems')}
                 className="text-xs bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 hover:text-sky-700 px-3 py-1.5 rounded-md font-mono transition-all font-semibold shadow-sm"
               >
-                "Chemical storage &amp; fume extraction"
+                &quot;Chemical storage &amp; fume extraction&quot;
               </button>
               <button
                 onClick={() => runPreset('High-precision analytical balances and laboratory instruments')}
                 className="text-xs bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 hover:text-sky-700 px-3 py-1.5 rounded-md font-mono transition-all font-semibold shadow-sm"
               >
-                "Precision instruments &amp; balances"
+                &quot;Precision instruments &amp; balances&quot;
               </button>
               <button
                 onClick={() => runPreset('Custom modular lab furniture and ESD workbench setup')}
                 className="text-xs bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 hover:text-sky-700 px-3 py-1.5 rounded-md font-mono transition-all font-semibold shadow-sm"
               >
-                "Modular lab furniture &amp; workbenches"
+                &quot;Modular lab furniture &amp; workbenches&quot;
               </button>
             </div>
           </div>
