@@ -1,6 +1,11 @@
 import { MetadataRoute } from 'next'
 import { createClient } from '@sanity/client'
 
+interface SanitySitemapProduct {
+  slug: string
+  _updatedAt?: string
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'tn8roucm'
   const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
@@ -14,14 +19,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     apiVersion: '2024-01-01',
   })
 
-  let products = []
+  let products: SanitySitemapProduct[] = []
   try {
-    products = await sanity.fetch(`*[_type == "product"]{ "slug": slug.current, _updatedAt }`)
-  } catch (err) {
+    products = await sanity.fetch<SanitySitemapProduct[]>(
+      `*[_type == "product"]{ "slug": slug.current, _updatedAt }`
+    )
+  } catch (err: unknown) {
     console.error('Sitemap fetch warning:', err)
   }
 
-  const productEntries = (products || []).map((item: any) => ({
+  const productEntries = (products || []).map((item) => ({
     url: `${baseUrl}/products/${item.slug}`,
     lastModified: item._updatedAt ? new Date(item._updatedAt) : new Date(),
     changeFrequency: 'weekly' as const,
