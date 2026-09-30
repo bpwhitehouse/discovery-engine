@@ -2,7 +2,9 @@ import { NextResponse } from 'next/server';
 import { Pinecone } from '@pinecone-database/pinecone';
 import OpenAI from 'openai';
 
-// Lazy load clients inside the request handler or wrap in a check to prevent build-time crashes if keys are missing
+// Force Next.js to execute this route dynamically on every request
+export const dynamic = 'force-dynamic';
+
 function getClients() {
   if (!process.env.PINECONE_API_KEY || !process.env.OPENAI_API_KEY) {
     throw new Error('PINECONE_API_KEY or OPENAI_API_KEY is not configured in environment variables.');
@@ -43,7 +45,6 @@ export async function GET(request: Request) {
 
     const index = pinecone.index(indexName);
 
-    // Line 46 fix: replaced Record<string, any> with Record<string, unknown>
     const filter: Record<string, unknown> = {};
     if (categoryFilter) {
       filter.category = { $eq: categoryFilter };
@@ -73,10 +74,9 @@ export async function GET(request: Request) {
       latency: {
         embedding: embeddingLatency,
         vector: vectorLatency,
-        cms: 0, // Set or calculate CMS hydration latency if applicable
+        cms: 0,
       },
     });
-  // Line 78 fix: replaced (err: any) with (err: unknown)
   } catch (err: unknown) {
     console.error('Search API Route Error:', err);
     const errorMessage = err instanceof Error ? err.message : 'Failed to perform vector search.';
