@@ -17,7 +17,7 @@ interface LatencyBreakdown {
   cms: number;
 }
 
-export function SearchPipelineVisualizer({
+function SearchPipelineVisualizer({
   activeStep = 0,
   latency = { embedding: 0, vector: 0, cms: 0 },
 }: {
