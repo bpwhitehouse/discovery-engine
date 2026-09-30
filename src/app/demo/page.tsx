@@ -192,7 +192,7 @@ export default function DiscoveryEngineDemo() {
                 </strong>
               </p>
               <p>
-                Traditional search looks for exact keyword matches, often giving customers zero results. Whether plugged into an existing site as a zero-risk upgrade or launched as a complete AI platform, this technology converts missed searches into revenue and prepares your business for the future of AI search—without breaking existing systems.
+                Traditional search looks for exact keyword matches, often giving customers zero results. Whether plugged into an existing site or launched as a complete AI platform, this technology converts missed searches into revenue and prepares your business for the future of AI search—without breaking existing systems.
               </p>
             </div>
           </div>
