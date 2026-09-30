@@ -186,7 +186,10 @@ export default function DiscoveryEngineDemo() {
           <div>
             <h2 className="text-2xl font-bold text-slate-900">Lab Equipment Semantic Engine</h2>
             <div className="text-slate-500 text-sm mt-1">
-              <p><strong>An AI-Powered Discovery Engine that fixes broken search.
+              <p>
+                <strong>
+                  An AI-Powered Discovery Engine that fixes broken search.
+                </strong>
               </p>
               <p>
                 Traditional search looks for exact keyword matches, often giving customers zero results. Whether plugged into an existing site as a zero-risk upgrade or launched as a complete AI platform, this technology converts missed searches into revenue and prepares your business for the future of AI search—without breaking existing systems.
