@@ -1,3 +1,5 @@
+import { Rule } from 'sanity'
+
 export const productSchema = {
   name: 'product',
   type: 'document',
@@ -8,7 +10,12 @@ export const productSchema = {
     { name: 'category', type: 'string', title: 'Category' },
     { name: 'manufacturer', type: 'string', title: 'Manufacturer' },
     { name: 'description', type: 'text', title: 'Main Description' },
-    { name: 'metaDescription', type: 'text', rows: 2, validation: (Rule: any) => Rule.max(160) },
+    { 
+      name: 'metaDescription', 
+      type: 'text', 
+      rows: 2, 
+      validation: (Rule: Rule) => Rule.max(160) 
+    },
     { name: 'specifications', type: 'array', of: [{ type: 'block' }] },
     {
       name: 'faqs',
