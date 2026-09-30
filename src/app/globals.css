@@ -24,3 +24,11 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Prevent Font Awesome icons from exploding in size before JS mounts */
+svg:not(:root).svg-inline--fa,
+svg.svg-inline--fa {
+  max-width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+}
