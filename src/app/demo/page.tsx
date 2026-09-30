@@ -185,13 +185,13 @@ export default function DiscoveryEngineDemo() {
         <div className="mb-8 border-b border-slate-200 pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h2 className="text-2xl font-bold text-slate-900">Lab Equipment Semantic Engine</h2>
-            <p className="text-slate-500 text-sm mt-1">
+            <div className="text-slate-500 text-sm mt-1">
               <p><strong>An AI-Powered Discovery Engine that fixes broken search.
               </p>
               <p>
                 Traditional search looks for exact keyword matches, often giving customers zero results. Whether plugged into an existing site as a zero-risk upgrade or launched as a complete AI platform, this technology converts missed searches into revenue and prepares your business for the future of AI search—without breaking existing systems.
               </p>
-            </p>
+            </div>
           </div>
 
           <a
