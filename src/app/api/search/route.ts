@@ -43,7 +43,8 @@ export async function GET(request: Request) {
 
     const index = pinecone.index(indexName);
 
-    const filter: Record<string, any> = {};
+    // Line 46 fix: replaced Record<string, any> with Record<string, unknown>
+    const filter: Record<string, unknown> = {};
     if (categoryFilter) {
       filter.category = { $eq: categoryFilter };
     }
@@ -75,10 +76,12 @@ export async function GET(request: Request) {
         cms: 0, // Set or calculate CMS hydration latency if applicable
       },
     });
-  } catch (err: any) {
+  // Line 78 fix: replaced (err: any) with (err: unknown)
+  } catch (err: unknown) {
     console.error('Search API Route Error:', err);
+    const errorMessage = err instanceof Error ? err.message : 'Failed to perform vector search.';
     return NextResponse.json(
-      { error: err.message || 'Failed to perform vector search.' },
+      { error: errorMessage },
       { status: 500 }
     );
   }
