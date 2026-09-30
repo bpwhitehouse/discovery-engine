@@ -152,6 +152,23 @@ export default function DiscoveryEngineDemo() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans antialiased">
       <div className="max-w-5xl mx-auto px-4 py-10">
+
+        {/* Profile Link Header Bar */}
+        <div className="mb-6 pb-4 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400">
+          <div className="flex items-center gap-2">
+            <span className="inline-block h-2 w-2 rounded-full bg-sky-400"></span>
+            <span>Interactive Demo</span>
+          </div>
+          <a
+            href="/profile"
+            className="inline-flex items-center gap-1.5 text-sky-400 hover:text-sky-300 font-medium transition-colors hover:underline"
+          >
+            <span>View Profile</span>
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        </div>
         
         {/* Header */}
         <header className="mb-8 border-b border-slate-700 pb-6">
