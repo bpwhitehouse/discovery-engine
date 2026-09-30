@@ -209,6 +209,7 @@ export default function DiscoveryEngineDemo() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+		suppressHydrationWarning={true}
               placeholder="Search lab products by concept (e.g., 'What fume hoods comply with chemical safety standards?')..."
               className="w-full bg-white border border-slate-300 rounded-lg px-4 py-3.5 pr-32 text-slate-900 placeholder-slate-400 font-medium focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 shadow-sm"
               aria-label="Search laboratory products"
