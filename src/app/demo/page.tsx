@@ -17,93 +17,6 @@ interface LatencyBreakdown {
   cms: number;
 }
 
-function SearchPipelineVisualizer({
-  activeStep = 0,
-  latency = { embedding: 0, vector: 0, cms: 0 },
-}: {
-  activeStep?: number;
-  latency?: LatencyBreakdown;
-}) {
-  const steps = [
-    {
-      num: '01',
-      title: 'User Prompt',
-      tech: 'Next.js API',
-      desc: 'Captures intent & query text',
-      time: null,
-    },
-    {
-      num: '02',
-      title: 'Vectorize',
-      tech: 'OpenAI Embeddings',
-      desc: 'Translates query into 1,536 math dimensions',
-      time: latency.embedding ? `${latency.embedding}ms` : null,
-    },
-    {
-      num: '03',
-      title: 'Similarity Match',
-      tech: 'Pinecone Vector DB',
-      desc: 'Finds nearest product coordinates',
-      time: latency.vector ? `${latency.vector}ms` : null,
-    },
-    {
-      num: '04',
-      title: 'Grounded Answer',
-      tech: 'GPT-4o Mini (RAG)',
-      desc: 'Generates response strictly from CMS data',
-      time: latency.cms ? `${latency.cms}ms` : null,
-    },
-  ];
-
-  return (
-    <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 my-6">
-      <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-4">
-        Live Query Processing Pipeline
-      </h3>
-
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-3 relative">
-        {steps.map((step, idx) => {
-          const isActive = activeStep === idx + 1;
-          const isDone = activeStep > idx + 1;
-
-          return (
-            <div
-              key={step.num}
-              className={`p-3.5 rounded-lg border transition-all ${
-                isActive
-                  ? 'bg-sky-50 border-sky-500 shadow-sm shadow-sky-100'
-                  : isDone
-                  ? 'bg-emerald-50/80 border-emerald-400'
-                  : 'bg-white border-slate-200 text-slate-500'
-              }`}
-            >
-              <div className="flex items-center justify-between mb-1.5">
-                <span
-                  className={`text-xs font-mono font-bold ${
-                    isActive ? 'text-sky-700' : isDone ? 'text-emerald-700' : 'text-slate-400'
-                  }`}
-                >
-                  {step.num}
-                </span>
-                {step.time && (
-                  <span className="text-[10px] font-mono bg-slate-100 px-1.5 py-0.5 rounded text-slate-700 border border-slate-200">
-                    {step.time}
-                  </span>
-                )}
-              </div>
-              <h4 className={`text-sm font-semibold mb-0.5 ${isActive || isDone ? 'text-slate-900' : 'text-slate-700'}`}>
-                {step.title}
-              </h4>
-              <p className="text-[11px] font-mono text-sky-600 font-medium mb-1">{step.tech}</p>
-              <p className="text-[11px] text-slate-600 leading-tight">{step.desc}</p>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
 export default function DiscoveryEngineDemo() {
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
@@ -112,6 +25,36 @@ export default function DiscoveryEngineDemo() {
   const [latency, setLatency] = useState<LatencyBreakdown>({ embedding: 0, vector: 0, cms: 0 });
   const [error, setError] = useState<string | null>(null);
   const [activeStep, setActiveStep] = useState(0);
+
+  const pipelineSteps = [
+    {
+      num: '01',
+      title: 'Real-time Webhooks',
+      tech: 'Sanity CMS → Next.js',
+      desc: 'Content changes trigger instant backend ingestion.',
+    },
+    {
+      num: '02',
+      title: '1,536-Dim Vectorize',
+      tech: 'OpenAI Embeddings',
+      desc: 'Translates query intent into mathematical vectors.',
+      time: latency.embedding ? `${latency.embedding}ms` : null,
+    },
+    {
+      num: '03',
+      title: 'Cosine Distance Match',
+      tech: 'Pinecone Vector DB',
+      desc: 'Ranks products by high-dimensional similarity.',
+      time: latency.vector ? `${latency.vector}ms` : null,
+    },
+    {
+      num: '04',
+      title: 'Grounded Output',
+      tech: 'GPT-4o Mini RAG',
+      desc: 'Synthesises structured, hallucination-free answers.',
+      time: latency.cms ? `${latency.cms}ms` : null,
+    },
+  ];
 
   const handleSearch = async (searchQuery?: string) => {
     const activeQuery = searchQuery ?? query;
@@ -136,7 +79,7 @@ export default function DiscoveryEngineDemo() {
       setActiveStep(4);
     } catch (err: unknown) {
       console.error('Error fetching search results:', err);
-      setError('Failed to fetch dynamic vector results. Please ensure your API route (/api/search) is running and configured with Pinecone & OpenAI keys.');
+      setError('Failed to fetch dynamic vector results. Please ensure /api/search is active.');
       setResults([]);
       setActiveStep(0);
     } finally {
@@ -150,165 +93,211 @@ export default function DiscoveryEngineDemo() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans antialiased">
-      <div className="max-w-5xl mx-auto px-4 py-10">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans antialiased selection:bg-sky-100 selection:text-sky-900">
+      <div className="max-w-6xl mx-auto px-4 py-6">
 
-        {/* Header */}
-        <header className="mb-10 pb-8 border-b border-slate-200">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-3">
-            <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 m-0">
+        {/* 1. Slim Header Bar */}
+        <header className="bg-white border border-slate-200/80 rounded-xl px-5 py-3.5 mb-6 flex flex-wrap items-center justify-between gap-4 shadow-sm">
+          <div className="flex items-center gap-3">
+            <h1 className="text-base font-extrabold tracking-tight text-slate-900">
               Benjamin Whitehouse
             </h1>
-            <div>
-              <a
-                href="https://www.linkedin.com/in/bpwhitehouse"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-bold text-white bg-sky-600 hover:bg-sky-700 transition-colors shadow-sm"
-              >
-                LinkedIn
-              </a>
-            </div>
+            <span className="text-slate-300">|</span>
+            <span className="text-xs font-semibold text-sky-700 bg-sky-50 border border-sky-200 px-2.5 py-0.5 rounded-full">
+              Product Leader · AI Strategy
+            </span>
           </div>
-
-          <p className="text-sky-700 text-lg font-bold mb-2">
-            Product Leader · AI Strategy · Full-Stack Foundations
-          </p>
-
-          <p className="text-slate-600 text-base leading-relaxed max-w-3xl">
-            Senior Product Manager with technical roots in full-stack architecture and AI systems.
-            Specialising in zero-to-one product strategy, semantic discovery engines, and scaling user-centric platforms.
-          </p>
+          <div className="flex items-center gap-3 text-xs">
+            <span className="hidden sm:inline text-slate-500 font-medium">Lab Equipment Discovery Engine</span>
+            <a
+              href="https://www.linkedin.com/in/bpwhitehouse"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold text-white bg-sky-600 hover:bg-sky-700 transition-colors shadow-sm"
+            >
+              <span>LinkedIn</span>
+              <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.7a1.62 1.62 0 1 0 0 3.24 1.62 1.62 0 0 0 0-3.24z"/>
+              </svg>
+            </a>
+          </div>
         </header>
 
-        {/* Demo Section Header */}
-        <div className="mb-8 border-b border-slate-200 pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h2 className="text-2xl font-bold text-slate-900">Lab Equipment Semantic Engine</h2>
-            <div className="text-slate-500 text-sm mt-1">
-              <p>
-                <strong>
-                  An AI-Powered Discovery Engine that fixes broken search.
-                </strong>
-              </p>
-              <p>
-                Traditional search looks for exact keyword matches, often giving customers zero results. Whether plugged into an existing site or launched as a complete AI platform, this technology converts missed searches into revenue and prepares your business for the future of AI search—without breaking existing systems.
-              </p>
+        {/* 2. Unified How-It-Works / Visual Processing Pipeline */}
+        <section className="bg-white border border-slate-200 rounded-2xl p-5 mb-6 shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 mb-4 border-b border-slate-100 gap-2">
+            <div>
+              <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
+                <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>
+                How It Works: Vector Search Pipeline
+              </h2>
             </div>
+            <span className="text-[11px] text-slate-400 font-mono">
+              Next.js 14 · OpenAI Embeddings · Pinecone Vector DB
+            </span>
           </div>
 
-          <a
-            href="#how-it-works"
-            className="w-fit inline-flex items-center gap-1.5 bg-slate-50 hover:bg-slate-100 text-sky-700 border border-slate-200 hover:border-sky-500 text-xs px-3.5 py-1.5 rounded-full font-semibold transition-all shadow-sm group"
-          >
-            <span>How it Works</span>
-            <svg className="w-3.5 h-3.5 text-sky-700 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </a>
-        </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {pipelineSteps.map((step, idx) => {
+              const isActive = activeStep === idx + 1;
+              const isDone = activeStep > idx + 1;
 
-        {/* Search Section */}
-        <section className="mb-6 space-y-4">
+              return (
+                <div
+                  key={step.num}
+                  className={`p-3.5 rounded-xl border transition-all ${
+                    isActive
+                      ? 'bg-sky-50/80 border-sky-400 shadow-sm ring-1 ring-sky-300'
+                      : isDone
+                      ? 'bg-emerald-50/50 border-emerald-300'
+                      : 'bg-slate-50/60 border-slate-200'
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-1">
+                    <span className={`text-[10px] font-mono font-bold px-1.5 py-0.2 rounded ${
+                      isActive ? 'bg-sky-600 text-white' : isDone ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-600'
+                    }`}>
+                      {step.num}
+                    </span>
+                    {step.time && (
+                      <span className="text-[10px] font-mono bg-white px-1.5 py-0.5 rounded text-slate-700 border border-slate-200 font-medium">
+                        {step.time}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="text-xs font-bold text-slate-900 mt-2 mb-0.5">{step.title}</h3>
+                  <p className="text-[11px] font-mono text-sky-700 font-medium mb-1">{step.tech}</p>
+                  <p className="text-[11px] text-slate-500 leading-tight">{step.desc}</p>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* 3. Search & Quick Presets Section */}
+        <section className="bg-white border border-slate-200 rounded-2xl p-5 mb-6 shadow-sm space-y-4">
           <div className="relative">
             <input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-              suppressHydrationWarning={true}
-              placeholder="Search lab products by concept (e.g., 'What fume hoods comply with chemical safety standards?')..."
-              className="w-full bg-white border border-slate-300 rounded-lg px-4 py-3.5 pr-32 text-slate-900 placeholder-slate-400 font-medium focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 shadow-sm"
-              aria-label="Search laboratory products"
+              placeholder="Search by concept (e.g., 'What chemical safety storage options exist?')..."
+              className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3.5 pr-32 text-sm text-slate-900 placeholder-slate-400 font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all"
             />
             <button
               onClick={() => handleSearch()}
               disabled={loading}
-              className="absolute right-2 top-2 bottom-2 bg-sky-600 hover:bg-sky-700 disabled:bg-slate-100 disabled:text-slate-400 text-white font-bold px-5 rounded-md text-sm transition-colors shadow"
+              className="absolute right-2 top-2 bottom-2 bg-sky-600 hover:bg-sky-700 disabled:bg-slate-200 disabled:text-slate-400 text-white font-bold px-5 rounded-lg text-xs transition-colors shadow-sm"
             >
-              {loading ? 'Searching...' : 'Search'}
+              {loading ? 'Processing...' : 'Search Vector DB'}
             </button>
           </div>
 
-          {/* Preset Queries Bar */}
-          <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
-            <div className="flex items-center gap-2 text-slate-700 text-xs font-semibold">
-              <span className="flex h-2 w-2 rounded-full bg-sky-500 animate-pulse"></span>
-              <span>Select a search preset to test Pinecone retrieval:</span>
-            </div>
-            <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center justify-between gap-2 pt-1 text-xs">
+            <span className="text-slate-500 font-semibold text-[11px]">Test Presets:</span>
+            <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => runPreset('Chemical storage and fume extraction systems')}
-                className="text-xs bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 hover:text-sky-700 px-3 py-1.5 rounded-md font-mono transition-all font-semibold shadow-sm"
+                className="text-[11px] bg-slate-100 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-mono font-medium transition-all"
               >
                 &quot;Chemical storage &amp; fume extraction&quot;
               </button>
               <button
                 onClick={() => runPreset('High-precision analytical balances and laboratory instruments')}
-                className="text-xs bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 hover:text-sky-700 px-3 py-1.5 rounded-md font-mono transition-all font-semibold shadow-sm"
+                className="text-[11px] bg-slate-100 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-mono font-medium transition-all"
               >
-                &quot;Precision instruments &amp; balances&quot;
+                &quot;Precision balances&quot;
               </button>
               <button
                 onClick={() => runPreset('Custom modular lab furniture and ESD workbench setup')}
-                className="text-xs bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 hover:text-sky-700 px-3 py-1.5 rounded-md font-mono transition-all font-semibold shadow-sm"
+                className="text-[11px] bg-slate-100 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-mono font-medium transition-all"
               >
-                &quot;Modular lab furniture &amp; workbenches&quot;
+                &quot;Modular lab furniture&quot;
               </button>
             </div>
           </div>
         </section>
 
-        {/* Pipeline Visualizer */}
-        <SearchPipelineVisualizer activeStep={activeStep} latency={latency} />
+        {/* 4. Clear Results Location Banner & Anchor */}
+        <div id="results-anchor" className="flex items-center justify-between bg-sky-50/80 border border-sky-200/80 rounded-xl px-4 py-2.5 mb-6 text-xs text-sky-900">
+          <div className="flex items-center gap-2">
+            <svg className="w-4 h-4 text-sky-600 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 13l-7 7-7-7" />
+            </svg>
+            <span className="font-semibold">
+              Results Output Area
+            </span>
+            <span className="text-sky-700 font-normal hidden sm:inline">
+              — Products are ranked dynamically by Cosine Match Score (%) from Pinecone.
+            </span>
+          </div>
+          <span className="font-mono text-[10px] bg-sky-200/60 px-2 py-0.5 rounded text-sky-800 font-semibold">
+            {hasSearched ? `${results.length} Matches Found` : 'Awaiting Query'}
+          </span>
+        </div>
 
-        {/* Results & Diagnostics Grid */}
+        {/* 5. Main Results & Engine Diagnostics Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-4">
             {loading && (
-              <div className="bg-slate-50 border border-slate-200 rounded-lg p-8 text-center animate-pulse">
-                <p className="text-sky-700 text-sm font-semibold">Generating embeddings &amp; querying vector index...</p>
+              <div className="bg-white border border-slate-200 rounded-xl p-8 text-center animate-pulse shadow-sm">
+                <div className="inline-block h-6 w-6 rounded-full border-2 border-sky-600 border-t-transparent animate-spin mb-3"></div>
+                <p className="text-sky-700 text-xs font-semibold">Generating query embedding &amp; running Pinecone vector match...</p>
               </div>
             )}
 
             {error && (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-5 text-center">
-                <p className="text-red-700 text-sm font-semibold">{error}</p>
+              <div className="bg-red-50 border border-red-200 rounded-xl p-5 text-center">
+                <p className="text-red-700 text-xs font-semibold">{error}</p>
               </div>
             )}
 
             {!loading && !hasSearched && !error && (
-              <div className="bg-slate-50 border border-slate-200 rounded-lg p-8 text-center">
-                <p className="text-slate-500 text-sm">Search result matches will show here.</p>
+              <div className="bg-white border border-dashed border-slate-300 rounded-xl p-10 text-center shadow-sm">
+                <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <svg className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+                <h4 className="text-sm font-bold text-slate-800 mb-1">No Query Executed Yet</h4>
+                <p className="text-xs text-slate-500 max-w-xs mx-auto">
+                  Type a concept above or click a preset to trigger the semantic processing pipeline.
+                </p>
               </div>
             )}
 
             {!loading && hasSearched && results.length === 0 && !error && (
-              <div className="bg-slate-50 border border-slate-200 rounded-lg p-8 text-center">
-                <p className="text-slate-500 text-sm">No product vector matches found for your query.</p>
+              <div className="bg-white border border-slate-200 rounded-xl p-8 text-center shadow-sm">
+                <p className="text-slate-500 text-xs font-medium">No product matches met the vector similarity threshold.</p>
               </div>
             )}
 
             {!loading && results.length > 0 && (
               <div className="space-y-4">
-                {results.map((item) => (
-                  <div key={item.id} className="bg-white border border-slate-200 rounded-lg p-5 space-y-3 shadow-sm">
+                {results.map((item, index) => (
+                  <div key={item.id} className="bg-white border border-slate-200 rounded-xl p-5 space-y-3 shadow-sm hover:border-sky-300 transition-all">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold uppercase tracking-wider text-sky-800 bg-sky-50 border border-sky-200 px-2 py-0.5 rounded">
-                        Score: {(item.score * 100).toFixed(0)}% Match
-                      </span>
-                      <span className="text-xs text-slate-400 font-mono font-medium">
-                        {item.sanityId ? `Sanity ID: ${item.sanityId}` : `SKU/ID: ${item.id}`}
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-mono font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded">
+                          #{index + 1}
+                        </span>
+                        <span className="text-xs font-bold text-sky-700 bg-sky-50 border border-sky-200 px-2.5 py-0.5 rounded-full">
+                          {(item.score * 100).toFixed(0)}% Match
+                        </span>
+                      </div>
+                      <span className="text-[11px] text-slate-400 font-mono">
+                        {item.sanityId ? `Sanity ID: ${item.sanityId}` : `ID: ${item.id}`}
                       </span>
                     </div>
-                    <h4 className="text-lg font-bold text-slate-900">{item.title}</h4>
-                    <p className="text-sm text-slate-600 leading-relaxed">
+                    <h4 className="text-base font-bold text-slate-900">{item.title}</h4>
+                    <p className="text-xs text-slate-600 leading-relaxed">
                       {item.description}
                     </p>
                     {item.tags && item.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 pt-2">
+                      <div className="flex flex-wrap gap-1.5 pt-1">
                         {item.tags.map((tag) => (
-                          <span key={tag} className="text-xs bg-slate-100 text-slate-600 border border-slate-200 px-2 py-0.5 rounded font-medium">
+                          <span key={tag} className="text-[10px] bg-slate-100 text-slate-600 border border-slate-200 px-2 py-0.5 rounded font-medium">
                             {tag}
                           </span>
                         ))}
@@ -321,87 +310,45 @@ export default function DiscoveryEngineDemo() {
           </div>
 
           {/* Engine Diagnostics Sidebar */}
-          <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 h-fit space-y-4 shadow-sm">
-            <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200 pb-2">
+          <div className="bg-white border border-slate-200 rounded-xl p-4 h-fit space-y-4 shadow-sm">
+            <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-100 pb-2">
               Engine Diagnostics
             </h3>
 
             <div>
-              <span className="text-xs text-slate-500 font-medium block mb-1">Embedding Model</span>
-              <span className="text-xs font-mono bg-white border border-slate-200 text-sky-700 px-2.5 py-1 rounded block font-semibold">
-                text-embedding-3-small (1536 dim)
+              <span className="text-[11px] text-slate-400 font-medium block mb-1">Embedding Model</span>
+              <span className="text-xs font-mono bg-slate-50 border border-slate-200 text-sky-700 px-2.5 py-1 rounded block font-semibold">
+                text-embedding-3-small (1536)
               </span>
             </div>
 
             <div>
-              <span className="text-xs text-slate-500 font-medium block mb-1">Vector Index</span>
-              <span className="text-xs font-mono bg-white border border-slate-200 text-slate-800 px-2.5 py-1 rounded block font-semibold">
+              <span className="text-[11px] text-slate-400 font-medium block mb-1">Vector Index</span>
+              <span className="text-xs font-mono bg-slate-50 border border-slate-200 text-slate-800 px-2.5 py-1 rounded block font-semibold">
                 Pinecone (Cosine Distance)
               </span>
             </div>
 
             <div>
-              <span className="text-xs text-slate-500 font-medium block mb-1">CMS Synchronisation</span>
-              <div className="flex items-center gap-2 bg-white border border-slate-200 px-2.5 py-1 rounded">
+              <span className="text-[11px] text-slate-400 font-medium block mb-1">CMS Synchronization</span>
+              <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded">
                 <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span className="text-xs text-slate-800 font-medium">Sanity Webhooks Active</span>
               </div>
             </div>
 
             {hasSearched && !loading && (
-              <div className="border-t border-slate-200 pt-3">
-                <span className="text-xs text-slate-500 font-medium block mb-1">Latency Breakdown</span>
-                <div className="text-xs font-mono text-slate-700 space-y-1">
-                  <div className="flex justify-between"><span>Embedding API:</span> <span className="text-sky-700 font-semibold">{latency.embedding} ms</span></div>
+              <div className="border-t border-slate-100 pt-3">
+                <span className="text-[11px] text-slate-400 font-medium block mb-1.5">Latency Breakdown</span>
+                <div className="text-xs font-mono text-slate-600 space-y-1 bg-slate-50 p-2.5 rounded border border-slate-200">
+                  <div className="flex justify-between"><span>Embedding:</span> <span className="text-sky-700 font-semibold">{latency.embedding} ms</span></div>
                   <div className="flex justify-between"><span>Vector Match:</span> <span className="text-sky-700 font-semibold">{latency.vector} ms</span></div>
-                  <div className="flex justify-between"><span>CMS Hydration:</span> <span className="text-sky-700 font-semibold">{latency.cms} ms</span></div>
+                  <div className="flex justify-between"><span>CMS Hydrate:</span> <span className="text-sky-700 font-semibold">{latency.cms} ms</span></div>
                 </div>
               </div>
             )}
           </div>
         </div>
-
-        {/* How It Works Explainer Section */}
-        <section id="how-it-works" className="mt-16 border-t border-slate-200 pt-10 pb-6 text-slate-900">
-          <div className="mb-8">
-            <h2 className="text-xl font-bold text-slate-900">How It Works</h2>
-            <p className="text-slate-500 text-sm mt-1">An automated pipeline connecting content, vector search, and AI generation.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 space-y-2">
-              <div className="text-xs font-mono font-bold text-sky-700">STEP 01</div>
-              <h3 className="text-base font-semibold text-slate-900">Content Updates</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                When an editor updates product details in Sanity Studio, Sanity automatically sends a webhook alert to our server.
-              </p>
-            </div>
-
-            <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 space-y-2">
-              <div className="text-xs font-mono font-bold text-sky-700">STEP 02</div>
-              <h3 className="text-base font-semibold text-slate-900">AI Translation</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Our backend sends text to OpenAI, converting content into 1,536-dimensional vector coordinates.
-              </p>
-            </div>
-
-            <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 space-y-2">
-              <div className="text-xs font-mono font-bold text-sky-700">STEP 03</div>
-              <h3 className="text-base font-semibold text-slate-900">Vector Storage</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Coordinates are stored in Pinecone for real-time cosine similarity matching.
-              </p>
-            </div>
-
-            <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 space-y-2">
-              <div className="text-xs font-mono font-bold text-sky-700">STEP 04</div>
-              <h3 className="text-base font-semibold text-slate-900">Smart Search &amp; Answers</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Queries are matched in Pinecone and passed to OpenAI to output structured, grounded responses.
-              </p>
-            </div>
-          </div>
-        </section>
 
       </div>
     </div>
