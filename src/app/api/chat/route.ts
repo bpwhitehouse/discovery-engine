@@ -3,10 +3,8 @@ import { openai } from '@ai-sdk/openai'
 import { Pinecone } from '@pinecone-database/pinecone'
 import OpenAIClient from 'openai'
 
-// Force Next.js to treat this route as dynamic to prevent static build evaluation[cite: 2]
 export const dynamic = 'force-dynamic'
 
-// Instantiate clients lazily per request execution[cite: 2]
 function getClients() {
   const pineconeKey = process.env.PINECONE_API_KEY
   const openaiKey = process.env.OPENAI_API_KEY
@@ -43,13 +41,13 @@ export async function POST(req: Request) {
 
     const { pinecone, openaiClient } = getClients()
 
-    // 1. Generate embedding for user query via OpenAI[cite: 2, 3]
+    // 1. Generate embedding for user query
     const embedding = await openaiClient.embeddings.create({
       model: 'text-embedding-3-small',
       input: lastUserMessage,
     })
 
-    // 2. Query Pinecone vector database[cite: 2, 3]
+    // 2. Query Pinecone vector database
     const indexName = process.env.PINECONE_INDEX_NAME || 'discovery-index'
     const index = pinecone.index(indexName)
 
@@ -59,16 +57,12 @@ export async function POST(req: Request) {
       includeMetadata: true,
     })
 
-    // Debug logging
-    console.log('Pinecone Raw Matches:', JSON.stringify(searchResults.matches, null, 2))
-
-    // Filter valid text metadata entries
     const contextText = (searchResults.matches || [])
       .map((match) => match.metadata?.text as string)
       .filter(Boolean)
       .join('\n---\n')
 
-    // 3. Stream grounded LLM response using Vercel AI SDK[cite: 2, 3]
+    // 3. Stream grounded response
     const result = streamText({
       model: openai('gpt-4o-mini'),
       system: `You are a precise technical assistant. Answer using ONLY the following retrieved product context:
@@ -79,7 +73,8 @@ If the answer is not contained within the context above, state clearly: "Informa
       messages,
     })
 
-    return result.toDataStreamResponse()
+    // Use toTextStreamResponse() required by your current AI SDK version
+    return result.toTextStreamResponse()
   } catch (error: unknown) {
     console.error('Chat API Error:', error)
     const message = error instanceof Error ? error.message : 'An unexpected error occurred.'
