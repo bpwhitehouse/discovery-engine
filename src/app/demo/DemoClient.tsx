@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 
 interface SearchResult {
   id: string;
@@ -234,7 +235,7 @@ export default function DemoClient() {
         </div>
 
         {/* 5. Results & Diagnostics Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
           <div className="lg:col-span-2 space-y-4">
             {loading && (
               <div className="bg-white border border-slate-200 rounded-xl p-8 text-center animate-pulse shadow-sm">
@@ -342,6 +343,36 @@ export default function DemoClient() {
             )}
           </div>
         </div>
+
+        {/* 6. CMS Management Graphic (Internal Team Catalog View) */}
+        <section className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
+          <div className="border-b border-slate-100 pb-3">
+            <span className="text-[10px] font-mono font-bold text-sky-700 uppercase tracking-wider bg-sky-50 border border-sky-200 px-2.5 py-0.5 rounded-full inline-block mb-1">
+              Backend Operations
+            </span>
+            <h3 className="text-base font-bold text-slate-900">
+              Structured Content Management (Sanity Studio)
+            </h3>
+            <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+              Non-technical team members manage product schemas, whitepapers, categories, and FAQs in a visual editorial interface without writing code.
+            </p>
+          </div>
+
+          <div className="relative rounded-xl border border-slate-200 overflow-hidden bg-slate-900 shadow-inner group">
+            <Image
+              src="/sanity-studio.png"
+              alt="Sanity Studio Content Management Studio showing structured laboratory catalog entries and metadata schemas"
+              width={1200}
+              height={675}
+              className="w-full h-auto object-cover group-hover:scale-[1.01] transition-transform duration-300"
+              priority={false}
+            />
+          </div>
+
+          <p className="text-xs text-slate-600 leading-relaxed bg-slate-50 border border-slate-200 rounded-xl p-4">
+            <strong className="text-slate-900 font-semibold">How this powers search:</strong> When an editor creates or edits a product document inside Sanity Studio, a real-time web hook triggers our backend to recalculate vector embeddings via OpenAI and sync Pinecone instantly. This keeps the frontend AI search perfectly synchronized with your actual inventory in milliseconds.
+          </p>
+        </section>
 
       </div>
     </div>
