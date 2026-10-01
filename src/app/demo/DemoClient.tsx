@@ -225,7 +225,7 @@ export default function DemoClient() {
               Results Output Area
             </span>
             <span className="text-sky-700 font-normal hidden sm:inline">
-              — Products are ranked dynamically by Cosine Match Score (%) from Pinecone.
+              — Products are matched to your search using AI, with related products and catalogue categories connected to improve the results. Each result shows a match score based on its similarity to your search.
             </span>
           </div>
           <span className="font-mono text-[10px] bg-sky-200/60 px-2 py-0.5 rounded text-sky-800 font-semibold">
