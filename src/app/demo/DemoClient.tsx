@@ -132,7 +132,12 @@ export default function DemoClient() {
                 Find the right laboratory equipment with AI-powered search!
               </h2>
               <p className="text-sm text-slate-600 leading-relaxed max-w-2xl">
-                Products are matched to your search using AI, with related products and catalogue categories connected to improve the results. Each result shows a match score based on its similarity to your search.
+                Products are matched to your search terms using AI, rather than simple keyword matching that can return zero results.
+              <p className="text-sm text-slate-600 leading-relaxed max-w-2xl">  
+                Related products, catalogue categories, and articles are connected toimprove the results. 
+              </p> 
+              <p className="text-sm text-slate-600 leading-relaxed max-w-2xl">  
+                Each result shows a match score based on its similarity to your search.
               </p>
             </div>
           </div>
@@ -355,9 +360,6 @@ export default function DemoClient() {
             </h3>
             <p className="text-xs text-slate-500 mt-1 leading-relaxed">
               Non-technical team members manage product schemas, whitepapers, categories, and FAQs in a visual editorial interface without writing code.
-            </p>
-            <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-              <strong className="text-slate-900 font-semibold">How this powers search:</strong> When an editor creates or edits a product document inside Sanity Studio, a real-time web hook triggers the backend to recalculate vector embeddings via OpenAI and sync Pinecone instantly. This keeps the frontend AI search perfectly synchronized with your actual inventory in milliseconds.
             </p>
           </div>
 
