@@ -31,27 +31,27 @@ export default function DemoClient() {
       num: '01',
       title: 'Real-time Webhooks',
       tech: 'Sanity CMS → Next.js',
-      desc: 'Content changes trigger instant backend ingestion.',
+      desc: 'CMS content changes trigger instant backend updates.',
     },
     {
       num: '02',
-      title: '1,536-Dim Vectorize',
+      title: '1,536-Dim Vectorise',
       tech: 'OpenAI Embeddings',
-      desc: 'Translates query intent into mathematical vectors.',
+      desc: 'Translates user search query intent into mathematical vectors.',
       time: latency.embedding ? `${latency.embedding}ms` : null,
     },
     {
       num: '03',
       title: 'Cosine Distance Match',
       tech: 'Pinecone Vector DB',
-      desc: 'Ranks products by high-dimensional similarity.',
+      desc: 'Ranks products by high-dimensional similarity to user search intent.',
       time: latency.vector ? `${latency.vector}ms` : null,
     },
     {
       num: '04',
       title: 'Grounded Output',
       tech: 'GPT-4o Mini RAG',
-      desc: 'Synthesises structured, hallucination-free answers.',
+      desc: 'Synthesises structured, hallucination-free answers in search results!',
       time: latency.cms ? `${latency.cms}ms` : null,
     },
   ];
@@ -104,11 +104,10 @@ export default function DemoClient() {
             </h1>
             <span className="text-slate-300">|</span>
             <span className="text-xs font-semibold text-sky-700 bg-sky-50 border border-sky-200 px-2.5 py-0.5 rounded-full">
-              Product Leader · AI Strategy
+              Product Leader · AI Strategy · Full-stack Foundations
             </span>
           </div>
           <div className="flex items-center gap-3 text-xs">
-            <span className="hidden sm:inline text-slate-500 font-medium">Lab Equipment Discovery Engine</span>
             <a
               href="https://www.linkedin.com/in/bpwhitehouse"
               target="_blank"
@@ -129,12 +128,9 @@ export default function DemoClient() {
             <div>
               <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
                 <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>
-                How It Works: Vector Search Pipeline
+                Intent-driven product discovery for complex catalog search, powered by AI.
               </h2>
             </div>
-            <span className="text-[11px] text-slate-400 font-mono">
-              Next.js 15 · OpenAI Embeddings · Pinecone Vector DB
-            </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -330,7 +326,7 @@ export default function DemoClient() {
             </div>
 
             <div>
-              <span className="text-[11px] text-slate-400 font-medium block mb-1">CMS Synchronization</span>
+              <span className="text-[11px] text-slate-400 font-medium block mb-1">CMS Synchronisation</span>
               <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded">
                 <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span className="text-xs text-slate-800 font-medium">Sanity Webhooks Active</span>
