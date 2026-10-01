@@ -356,6 +356,8 @@ export default function DemoClient() {
             <p className="text-xs text-slate-500 mt-1 leading-relaxed">
               Non-technical team members manage product schemas, whitepapers, categories, and FAQs in a visual editorial interface without writing code.
             </p>
+            <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+              <strong className="text-slate-900 font-semibold">How this powers search:</strong> When an editor creates or edits a product document inside Sanity Studio, a real-time web hook triggers our backend to recalculate vector embeddings via OpenAI and sync Pinecone instantly. This keeps the frontend AI search perfectly synchronized with your actual inventory in milliseconds.
           </div>
 
           <div className="relative rounded-xl border border-slate-200 overflow-hidden bg-slate-900 shadow-inner group">
@@ -370,9 +372,6 @@ export default function DemoClient() {
 
           </div>
 
-          <p className="text-xs text-slate-600 leading-relaxed bg-slate-50 border border-slate-200 rounded-xl p-4">
-            <strong className="text-slate-900 font-semibold">How this powers search:</strong> When an editor creates or edits a product document inside Sanity Studio, a real-time web hook triggers our backend to recalculate vector embeddings via OpenAI and sync Pinecone instantly. This keeps the frontend AI search perfectly synchronized with your actual inventory in milliseconds.
-          </p>
         </section>
 
       </div>
