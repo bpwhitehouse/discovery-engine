@@ -128,7 +128,7 @@ export default function DemoClient() {
             <div>
               <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
                 <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>
-                Intent-driven product discovery for complex catalog search, powered by AI.
+                See how AI can help people find the right laboratory equipment using everyday language.
               </h2>
             </div>
           </div>
@@ -139,7 +139,7 @@ export default function DemoClient() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-              placeholder="Search by concept (e.g., 'What chemical safety storage options exist?')..."
+              placeholder="Enter your search  hereWhat are you looking for?"
               className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3.5 pr-32 text-sm text-slate-900 placeholder-slate-400 font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all"
             />
             <button
@@ -147,28 +147,28 @@ export default function DemoClient() {
               disabled={loading}
               className="absolute right-2 top-2 bottom-2 bg-sky-600 hover:bg-sky-700 disabled:bg-slate-200 disabled:text-slate-400 text-white font-bold px-5 rounded-lg text-xs transition-colors shadow-sm"
             >
-              {loading ? 'Processing...' : 'Search Vector DB'}
+              {loading ? 'Processing...' : 'Search'}
             </button>
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-2 pt-1 text-xs">
-            <span className="text-slate-500 font-semibold text-[11px]">Test Presets:</span>
+            <span className="text-slate-500 font-semibold text-[13px]">Or try a suggested search:</span>
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => runPreset('Chemical storage and fume extraction systems')}
-                className="text-[11px] bg-slate-100 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-mono font-medium transition-all"
+                className="text-[13px] bg-slate-100 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-mono font-medium transition-all"
               >
                 &quot;Chemical storage &amp; fume extraction&quot;
               </button>
               <button
                 onClick={() => runPreset('High-precision analytical balances and laboratory instruments')}
-                className="text-[11px] bg-slate-100 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-mono font-medium transition-all"
+                className="text-[13px] bg-slate-100 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-mono font-medium transition-all"
               >
                 &quot;Precision balances&quot;
               </button>
               <button
                 onClick={() => runPreset('Custom modular lab furniture and ESD workbench setup')}
-                className="text-[11px] bg-slate-100 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-mono font-medium transition-all"
+                className="text-[13px] bg-slate-100 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-mono font-medium transition-all"
               >
                 &quot;Modular lab furniture&quot;
               </button>
