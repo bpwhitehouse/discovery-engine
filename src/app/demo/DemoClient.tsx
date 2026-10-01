@@ -122,8 +122,8 @@ export default function DemoClient() {
           </div>
         </header>
 
-        {/* 2. Visual Pipeline */}
-        <section className="bg-white border border-slate-200 rounded-2xl p-5 mb-6 shadow-sm">
+        {/* 2. Search Bar & Presets */}
+        <section className="bg-white border border-slate-200 rounded-2xl p-5 mb-6 shadow-sm space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 mb-4 border-b border-slate-100 gap-2">
             <div>
               <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
@@ -132,46 +132,7 @@ export default function DemoClient() {
               </h2>
             </div>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            {pipelineSteps.map((step, idx) => {
-              const isActive = activeStep === idx + 1;
-              const isDone = activeStep > idx + 1;
-
-              return (
-                <div
-                  key={step.num}
-                  className={`p-3.5 rounded-xl border transition-all ${
-                    isActive
-                      ? 'bg-sky-50/80 border-sky-400 shadow-sm ring-1 ring-sky-300'
-                      : isDone
-                      ? 'bg-emerald-50/50 border-emerald-300'
-                      : 'bg-slate-50/60 border-slate-200'
-                  }`}
-                >
-                  <div className="flex items-center justify-between mb-1">
-                    <span className={`text-[10px] font-mono font-bold px-1.5 py-0.2 rounded ${
-                      isActive ? 'bg-sky-600 text-white' : isDone ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-600'
-                    }`}>
-                      {step.num}
-                    </span>
-                    {step.time && (
-                      <span className="text-[10px] font-mono bg-white px-1.5 py-0.5 rounded text-slate-700 border border-slate-200 font-medium">
-                        {step.time}
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="text-xs font-bold text-slate-900 mt-2 mb-0.5">{step.title}</h3>
-                  <p className="text-[11px] font-mono text-sky-700 font-medium mb-1">{step.tech}</p>
-                  <p className="text-[11px] text-slate-500 leading-tight">{step.desc}</p>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* 3. Search Bar & Presets */}
-        <section className="bg-white border border-slate-200 rounded-2xl p-5 mb-6 shadow-sm space-y-4">
+          
           <div className="relative">
             <input
               type="text"
@@ -212,6 +173,45 @@ export default function DemoClient() {
                 &quot;Modular lab furniture&quot;
               </button>
             </div>
+          </div>
+        </section>
+
+       {/* 3. Visual Pipeline */}
+        <section className="bg-white border border-slate-200 rounded-2xl p-5 mb-6 shadow-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {pipelineSteps.map((step, idx) => {
+              const isActive = activeStep === idx + 1;
+              const isDone = activeStep > idx + 1;
+
+              return (
+                <div
+                  key={step.num}
+                  className={`p-3.5 rounded-xl border transition-all ${
+                    isActive
+                      ? 'bg-sky-50/80 border-sky-400 shadow-sm ring-1 ring-sky-300'
+                      : isDone
+                      ? 'bg-emerald-50/50 border-emerald-300'
+                      : 'bg-slate-50/60 border-slate-200'
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-1">
+                    <span className={`text-[10px] font-mono font-bold px-1.5 py-0.2 rounded ${
+                      isActive ? 'bg-sky-600 text-white' : isDone ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-600'
+                    }`}>
+                      {step.num}
+                    </span>
+                    {step.time && (
+                      <span className="text-[10px] font-mono bg-white px-1.5 py-0.5 rounded text-slate-700 border border-slate-200 font-medium">
+                        {step.time}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="text-xs font-bold text-slate-900 mt-2 mb-0.5">{step.title}</h3>
+                  <p className="text-[11px] font-mono text-sky-700 font-medium mb-1">{step.tech}</p>
+                  <p className="text-[11px] text-slate-500 leading-tight">{step.desc}</p>
+                </div>
+              );
+            })}
           </div>
         </section>
 
