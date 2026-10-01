@@ -4,6 +4,8 @@ import { NextStudio } from 'next-sanity/studio'
 import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { productSchema } from '@/sanity/schemas/product'
+import { categorySchema } from '@/sanity/schemas/category'
+import { manufacturerSchema } from '@/sanity/schemas/manufacturer'
 
 const config = defineConfig({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'tn8roucm',
@@ -12,7 +14,7 @@ const config = defineConfig({
   basePath: '/studio',
   plugins: [structureTool()],
   schema: {
-    types: [productSchema],
+    types: [productSchema, categorySchema, manufacturerSchema],
   },
 })
 
