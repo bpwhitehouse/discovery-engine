@@ -129,14 +129,14 @@ export default function DemoClient() {
             <div>
               <h2 className="text-lg sm:text-xl font-bold text-slate-800 mb-2 flex items-center gap-2">
                 <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 shrink-0"></span>
-                Find the right laboratory equipment with AI-powered search!
+                Find the right laboratory equipment with AI-powered vector storage and RAG search!
               </h2>
-              <ul className="text-sm text-slate-600 leading-relaxed max-w-2xl">
+              <ul className="text-sm text-slate-600 leading-relaxed">
                 <li>
                   Products are matched to your search terms using AI, rather than simple keyword matching that can return zero results.
                 </li>
                 <li>  
-                  Related products, catalogue categories, and articles are connected toimprove the results. 
+                  Related products, catalogue categories and articles are connected to improve the results. 
                 </li>
                 <li>
                   Each result shows a match score based on its similarity to your search.
@@ -363,7 +363,7 @@ export default function DemoClient() {
             <h3 className="text-base font-bold text-slate-900">
               Structured Content Management (Sanity Studio)
             </h3>
-            <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+            <p className="text-sm text-slate-600 leading-relaxed">
               Non-technical team members manage product schemas, whitepapers, categories, and FAQs in a visual editorial interface without writing code.
             </p>
             <p className="text-sm text-slate-600 leading-relaxed">  
@@ -384,6 +384,27 @@ export default function DemoClient() {
               priority={false}
             />
   
+          {/* 7. Vector Storage & RAG Search Graphic (Pinecone + OpenAI Retrieval View) */}
+          <section className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="border-b border-slate-100 pb-3">
+              <span className="text-[10px] font-mono font-bold text-emerald-700 uppercase tracking-wider bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full inline-block mb-1">
+                Vector Database & RAG Pipeline
+              </span>
+              <h3 className="text-base font-bold text-slate-900">
+                High-Speed Vector Indexing & Hybrid Retrieval (Pinecone)
+              </h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                When Sanity pushes changes via webhook, Next.js generates 1,536-dimensional vector embeddings using OpenAI (`text-embedding-3-small`) and upserts them into Pinecone with rich metadata[cite: 1, 2, 3].
+              </p>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                When a user queries the application, OpenAI embeds the search query on the fly[cite: 1, 2]. Pinecone instantly executes a cosine distance vector similarity search—combining hard metadata filters with semantic matching in milliseconds[cite: 1, 2].
+              </p> 
+              <p className="text-sm text-slate-600 leading-relaxed">
+                The retrieved product context is then fed directly into `gpt-4o-mini` via Retrieval-Augmented Generation (RAG) to stream fully grounded, accurate search answers back to the user without hallucinations[cite: 2, 3].
+              </p>
+            </div>
+          </section>  
+
             <Image
               src="/pineconeUI.png"
               alt="Pinecone UI showing vector embeddings determined by OpenAI from Sanity webhookand search results"
