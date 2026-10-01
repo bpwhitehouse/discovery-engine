@@ -191,9 +191,6 @@ export default function DemoClient() {
        {/* 3. Visual Pipeline */}
         <section className="bg-white border border-slate-200 rounded-2xl p-5 mb-6 shadow-sm">
           <div className="border-b border-slate-100 pb-3 mb-4">
-            <p className="text-sm text-slate-600 leading-relaxed">  
-                When an editor creates or edits a product document inside Sanity Studio, a real-time web hook triggers the backend to recalculate vector embeddings via OpenAI and sync Pinecone instantly. This keeps the frontend AI search perfectly synchronized with your actual inventory in milliseconds.
-              </p> 
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {pipelineSteps.map((step, idx) => {
@@ -369,12 +366,27 @@ export default function DemoClient() {
             <p className="text-xs text-slate-500 mt-1 leading-relaxed">
               Non-technical team members manage product schemas, whitepapers, categories, and FAQs in a visual editorial interface without writing code.
             </p>
+            <p className="text-sm text-slate-600 leading-relaxed">  
+              When an editor creates or edits a product document inside Sanity Studio, a real-time web hook triggers the backend to recalculate vector embeddings via OpenAI and sync Pinecone instantly.
+            </p> 
+            <p className="text-sm text-slate-600 leading-relaxed">
+              This keeps the frontend AI search perfectly synchronised with your actual inventory in milliseconds.
+            </p>
           </div>
 
           <div className="relative rounded-xl border border-slate-200 overflow-hidden bg-slate-900 shadow-inner group">
             <Image
               src="/sanity-studio.png"
               alt="Sanity Studio Content Management Studio (CMS) showing structured laboratory catalog entries and metadata schemas"
+              width={1200}
+              height={675}
+              className="w-full h-auto object-cover group-hover:scale-[1.01] transition-transform duration-300"
+              priority={false}
+            />
+  
+            <Image
+              src="/pineconeUI.png"
+              alt="Pinecone UI showing vector embeddings determined by OpenAI from Sanity webhookand search results"
               width={1200}
               height={675}
               className="w-full h-auto object-cover group-hover:scale-[1.01] transition-transform duration-300"
