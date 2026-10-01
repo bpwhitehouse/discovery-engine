@@ -131,15 +131,17 @@ export default function DemoClient() {
                 <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 shrink-0"></span>
                 Find the right laboratory equipment with AI-powered search!
               </h2>
-              <p className="text-sm text-slate-600 leading-relaxed max-w-2xl">
-                Products are matched to your search terms using AI, rather than simple keyword matching that can return zero results.
-              </p>
-              <p className="text-sm text-slate-600 leading-relaxed max-w-2xl">  
-                Related products, catalogue categories, and articles are connected toimprove the results. 
-              </p> 
-              <p className="text-sm text-slate-600 leading-relaxed max-w-2xl">  
-                Each result shows a match score based on its similarity to your search.
-              </p>
+              <ul className="text-sm text-slate-600 leading-relaxed max-w-2xl">
+                <li>
+                  Products are matched to your search terms using AI, rather than simple keyword matching that can return zero results.
+                </li>
+                <li>  
+                  Related products, catalogue categories, and articles are connected toimprove the results. 
+                </li>
+                <li>
+                  Each result shows a match score based on its similarity to your search.
+                </li>
+              </ul> 
             </div>
           </div>
           
