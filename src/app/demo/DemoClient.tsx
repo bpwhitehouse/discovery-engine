@@ -139,7 +139,7 @@ export default function DemoClient() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-              placeholder="Enter your search  hereWhat are you looking for?"
+              placeholder="What are you looking for?"
               className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3.5 pr-32 text-sm text-slate-900 placeholder-slate-400 font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all"
             />
             <button
