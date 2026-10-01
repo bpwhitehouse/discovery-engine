@@ -190,8 +190,6 @@ export default function DemoClient() {
 
        {/* 3. Visual Pipeline */}
         <section className="bg-white border border-slate-200 rounded-2xl p-5 mb-6 shadow-sm">
-          <div className="border-b border-slate-100 pb-3 mb-4">
-          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {pipelineSteps.map((step, idx) => {
               const isActive = activeStep === idx + 1;
@@ -414,7 +412,7 @@ export default function DemoClient() {
               className="w-full h-auto object-cover group-hover:scale-[1.01] transition-transform duration-300"
               priority={false}
             />
-            
+
         </section>
 
       </div>    
