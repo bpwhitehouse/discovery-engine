@@ -133,13 +133,13 @@ export default function DemoClient() {
               </h2>
               <ul className="mt-3 space-y-2.5 text-sm text-slate-600 list-disc list-inside leading-relaxed">
                 <li>
-                  <strong className="text-slate-800">Intent Matching:</strong> Products are matched to your search terms using AI, rather than simple keyword matching that can return zero results[cite: 1, 3].
+                  <strong className="text-slate-800">Intent Matching:</strong> Products are matched to your search terms using AI, rather than simple keyword matching that can return zero results.
                 </li>
                 <li>
-                  <strong className="text-slate-800">Connected Catalog Context:</strong> Related products, catalogue categories, and articles are connected to improve the results[cite: 1, 3].
+                  <strong className="text-slate-800">Connected Catalog Context:</strong> Related products, catalogue categories, and articles are connected to improve the results.
                 </li>
                 <li>
-                  <strong className="text-slate-800">Similarity Scoring:</strong> Each result shows a match score based on its similarity to your search[cite: 1, 2].
+                  <strong className="text-slate-800">Similarity Scoring:</strong> Each result shows a match score based on its similarity to your search.
                 </li>
               </ul> 
             </div>
@@ -363,13 +363,13 @@ export default function DemoClient() {
             </h3>
             <ul className="mt-3 space-y-2.5 text-sm text-slate-600 list-disc list-inside leading-relaxed">
               <li>
-                <strong className="text-slate-800">Visual Editorial Control:</strong> Non-technical team members manage product schemas, whitepapers, categories, and FAQs in a visual editorial interface without writing code[cite: 1, 2].
+                <strong className="text-slate-800">Visual Editorial Control:</strong> Non-technical team members manage product schemas, whitepapers, categories, and FAQs in a visual editorial interface without writing code.
               </li>
               <li>
-                <strong className="text-slate-800">Automated Webhooks:</strong> When an editor creates or edits a product document inside Sanity Studio, a real-time webhook triggers the backend to recalculate vector embeddings via OpenAI and sync Pinecone instantly[cite: 1, 2].
+                <strong className="text-slate-800">Automated Webhooks:</strong> When an editor creates or edits a product document inside Sanity Studio, a real-time webhook triggers the backend to recalculate vector embeddings via OpenAI and sync Pinecone instantly.
               </li>
               <li>
-                <strong className="text-slate-800">Real-Time Sync:</strong> Keeps the frontend AI search perfectly synchronised with your actual inventory in milliseconds[cite: 1, 2].
+                <strong className="text-slate-800">Real-Time Sync:</strong> Keeps the frontend AI search perfectly synchronised with your actual inventory in milliseconds.
               </li>
             </ul>
           </div>
@@ -397,13 +397,13 @@ export default function DemoClient() {
             </h3>
             <ul className="mt-3 space-y-2.5 text-sm text-slate-600 list-disc list-inside leading-relaxed">
               <li>
-                <strong className="text-slate-800">Vector Ingestion:</strong> When Sanity triggers a webhook, Next.js generates 1,536-dimensional vector embeddings via OpenAI (<code className="text-xs bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono">text-embedding-3-small</code>) and upserts them into Pinecone alongside rich metadata[cite: 1, 2, 3].
+                <strong className="text-slate-800">Vector Ingestion:</strong> When Sanity triggers a webhook, Next.js generates 1,536-dimensional vector embeddings via OpenAI (<code className="text-xs bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono">text-embedding-3-small</code>) and upserts them into Pinecone alongside rich metadata.
               </li>
               <li>
-                <strong className="text-slate-800">Hybrid Search & Latency:</strong> User search queries are embedded on the fly by OpenAI[cite: 1, 2, 3]. Pinecone instantly executes a cosine distance similarity search in milliseconds, combining structured metadata filters with semantic similarity matching[cite: 1, 2, 3].
+                <strong className="text-slate-800">Hybrid Search & Latency:</strong> User search queries are embedded on the fly by OpenAI[cite: 1, 2, 3]. Pinecone instantly executes a cosine distance similarity search in milliseconds, combining structured metadata filters with semantic similarity matching.
               </li>
               <li>
-                <strong className="text-slate-800">Grounded RAG Streaming:</strong> Retrieved product context is passed to OpenAI's <code className="text-xs bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono">gpt-4o-mini</code> via Retrieval-Augmented Generation (RAG) to stream fully grounded search answers without hallucinations[cite: 1, 2, 3].
+                <strong className="text-slate-800">Grounded RAG Streaming:</strong> Retrieved product context is passed to OpenAI's <code className="text-xs bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono">gpt-4o-mini</code> via Retrieval-Augmented Generation (RAG) to stream fully grounded search answers without hallucinations.
               </li>
             </ul>
           </div>
