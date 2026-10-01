@@ -129,7 +129,7 @@ export default function DemoClient() {
             <div>
               <h2 className="text-lg sm:text-xl font-bold text-slate-800 mb-2 flex items-center gap-2">
                 <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 shrink-0"></span>
-                Find the right laboratory equipment with AI
+                Find the right laboratory equipment with AI-powered search!
               </h2>
               <p className="text-sm text-slate-600 leading-relaxed max-w-2xl">
                 Products are matched to your search using AI, with related products and catalogue categories connected to improve the results. Each result shows a match score based on its similarity to your search.
