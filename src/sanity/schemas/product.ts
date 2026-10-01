@@ -7,8 +7,18 @@ export const productSchema = {
   fields: [
     { name: 'title', type: 'string', title: 'Product Title' },
     { name: 'slug', type: 'slug', options: { source: 'title' } },
-    { name: 'category', type: 'string', title: 'Category' },
-    { name: 'manufacturer', type: 'string', title: 'Manufacturer' },
+    {
+      name: 'category',
+      type: 'reference',
+      title: 'Category',
+      to: [{ type: 'category' }],
+    },
+    {
+      name: 'manufacturer',
+      type: 'reference',
+      title: 'Manufacturer',
+      to: [{ type: 'manufacturer' }],
+    },
     { name: 'description', type: 'text', title: 'Main Description' },
     { 
       name: 'metaDescription', 
