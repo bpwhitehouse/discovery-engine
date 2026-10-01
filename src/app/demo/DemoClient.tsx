@@ -383,6 +383,8 @@ export default function DemoClient() {
               className="w-full h-auto object-cover group-hover:scale-[1.01] transition-transform duration-300"
               priority={false}
             />
+          </div>
+        </section>  
   
           {/* 7. Vector Storage & RAG Search Graphic (Pinecone + OpenAI Retrieval View) */}
           <section className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
@@ -403,7 +405,6 @@ export default function DemoClient() {
                 The retrieved product context is then fed directly into `gpt-4o-mini` via Retrieval-Augmented Generation (RAG) to stream fully grounded, accurate search answers back to the user without hallucinations[cite: 2, 3].
               </p>
             </div>
-          </section>  
 
             <Image
               src="/pineconeUI.png"
@@ -413,12 +414,10 @@ export default function DemoClient() {
               className="w-full h-auto object-cover group-hover:scale-[1.01] transition-transform duration-300"
               priority={false}
             />
-
-          </div>
-
+            
         </section>
 
-      </div>
+      </div>    
     </div>
   );
 }
