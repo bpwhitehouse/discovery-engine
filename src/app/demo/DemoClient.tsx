@@ -361,7 +361,7 @@ export default function DemoClient() {
           <div className="relative rounded-xl border border-slate-200 overflow-hidden bg-slate-900 shadow-inner group">
             <Image
               src="/sanity-studio.png"
-              alt="Sanity Studio Content Management Studio showing structured laboratory catalog entries and metadata schemas"
+              alt="Sanity Studio Content Management Studio (CMS) showing structured laboratory catalog entries and metadata schemas"
               width={1200}
               height={675}
               className="w-full h-auto object-cover group-hover:scale-[1.01] transition-transform duration-300"
