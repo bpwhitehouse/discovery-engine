@@ -159,7 +159,7 @@ export default function DemoClient() {
                 onClick={() => runPreset('Chemical storage fume extraction systems')}
                 className="text-[13px] bg-slate-100 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-mono font-medium transition-all"
               >
-                &quot;Chemical storage &amp; fume extraction&quot;
+                &quot;Chemical storage fume extraction&quot;
               </button>
               <button
                 onClick={() => runPreset('High-precision analytical balances and laboratory instruments')}
