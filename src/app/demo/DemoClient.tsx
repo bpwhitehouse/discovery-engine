@@ -400,7 +400,7 @@ export default function DemoClient() {
                 <strong className="text-slate-800">Vector Ingestion:</strong> When Sanity triggers a webhook, Next.js generates 1,536-dimensional vector embeddings via OpenAI (<code className="text-xs bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono">text-embedding-3-small</code>) and upserts them into Pinecone alongside rich metadata.
               </li>
               <li>
-                <strong className="text-slate-800">Hybrid Search & Latency:</strong> User search queries are embedded on the fly by OpenAI[cite: 1, 2, 3]. Pinecone instantly executes a cosine distance similarity search in milliseconds, combining structured metadata filters with semantic similarity matching.
+                <strong className="text-slate-800">Hybrid Search & Latency:</strong> User search queries are embedded on the fly by OpenAI. Pinecone instantly executes a cosine distance similarity search in milliseconds, combining structured metadata filters with semantic similarity matching.
               </li>
               <li>
                 <strong className="text-slate-800">Grounded RAG Streaming:</strong> Retrieved product context is passed to OpenAI's <code className="text-xs bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded font-mono">gpt-4o-mini</code> via Retrieval-Augmented Generation (RAG) to stream fully grounded search answers without hallucinations.
