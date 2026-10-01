@@ -394,13 +394,16 @@ export default function DemoClient() {
                 High-Speed Vector Indexing & Hybrid Retrieval (Pinecone)
               </h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                When Sanity pushes changes via webhook, Next.js generates 1,536-dimensional vector embeddings using OpenAI (`text-embedding-3-small`) and upserts them into Pinecone with rich metadata[cite: 1, 2, 3].
+                When Sanity pushes changes via webhook, Next.js generates 1,536-dimensional vector embeddings using OpenAI (`text-embedding-3-small`) and upserts them into Pinecone with rich metadata.
               </p>
               <p className="text-sm text-slate-600 leading-relaxed">
-                When a user queries the application, OpenAI embeds the search query on the fly[cite: 1, 2]. Pinecone instantly executes a cosine distance vector similarity search—combining hard metadata filters with semantic matching in milliseconds[cite: 1, 2].
+                When a user queries the application, OpenAI embeds the search query on the fly. Pinecone instantly executes a cosine distance vector similarity search—combining hard metadata filters with semantic matching in milliseconds.
               </p> 
               <p className="text-sm text-slate-600 leading-relaxed">
-                The retrieved product context is then fed directly into `gpt-4o-mini` via Retrieval-Augmented Generation (RAG) to stream fully grounded, accurate search answers back to the user without hallucinations[cite: 2, 3].
+                Pinecone instantly executes a cosine distance vector similarity search—combining hard metadata filters with semantic matching in milliseconds.
+              </p> 
+              <p className="text-sm text-slate-600 leading-relaxed">
+                The retrieved product context is then fed directly into `gpt-4o-mini` via Retrieval-Augmented Generation (RAG) to stream fully grounded, accurate search answers back to the user without hallucinations.
               </p>
             </div>
 
