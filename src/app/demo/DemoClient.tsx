@@ -133,6 +133,7 @@ export default function DemoClient() {
               </h2>
               <p className="text-sm text-slate-600 leading-relaxed max-w-2xl">
                 Products are matched to your search terms using AI, rather than simple keyword matching that can return zero results.
+              </p>
               <p className="text-sm text-slate-600 leading-relaxed max-w-2xl">  
                 Related products, catalogue categories, and articles are connected toimprove the results. 
               </p> 
@@ -187,6 +188,11 @@ export default function DemoClient() {
 
        {/* 3. Visual Pipeline */}
         <section className="bg-white border border-slate-200 rounded-2xl p-5 mb-6 shadow-sm">
+          <div className="border-b border-slate-100 pb-3 mb-4">
+            <p className="text-sm text-slate-600 leading-relaxed max-w-2xl">  
+                When an editor creates or edits a product document inside Sanity Studio, a real-time web hook triggers our backend to recalculate vector embeddings via OpenAI and sync Pinecone instantly. This keeps the frontend AI search perfectly synchronized with your actual inventory in milliseconds.
+              </p> 
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {pipelineSteps.map((step, idx) => {
               const isActive = activeStep === idx + 1;
