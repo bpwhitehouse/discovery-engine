@@ -127,13 +127,13 @@ export default function DemoClient() {
         <section className="bg-white border border-slate-200 rounded-2xl p-5 mb-6 shadow-sm space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 mb-4 border-b border-slate-100 gap-2">
             <div>
-              <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
-                <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>
-                See how AI can help people find the right laboratory equipment using everyday language.
+              <h2 className="text-lg sm:text-xl font-bold text-slate-800 mb-2 flex items-center gap-2">
+                <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 shrink-0"></span>
+                Find the right laboratory equipment with AI
               </h2>
-              <span className="text-sky-700 font-normal hidden sm:inline">
-              Products are matched to your search using AI, with related products and catalogue categories connected to improve the results. Each result shows a match score based on its similarity to your search.
-              </span>
+              <p className="text-sm text-slate-600 leading-relaxed max-w-2xl">
+                Products are matched to your search using AI, with related products and catalogue categories connected to improve the results. Each result shows a match score based on its similarity to your search.
+              </p>
             </div>
           </div>
           
@@ -367,6 +367,7 @@ export default function DemoClient() {
               className="w-full h-auto object-cover group-hover:scale-[1.01] transition-transform duration-300"
               priority={false}
             />
+
           </div>
 
           <p className="text-xs text-slate-600 leading-relaxed bg-slate-50 border border-slate-200 rounded-xl p-4">
