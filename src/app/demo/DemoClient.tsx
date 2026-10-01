@@ -155,7 +155,7 @@ export default function DemoClient() {
             <span className="text-slate-500 font-semibold text-[13px]">Or try a suggested search:</span>
             <div className="flex flex-wrap gap-2">
               <button
-                onClick={() => runPreset('Chemical storage and fume extraction systems')}
+                onClick={() => runPreset('Chemical storage fume extraction systems')}
                 className="text-[13px] bg-slate-100 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-mono font-medium transition-all"
               >
                 &quot;Chemical storage &amp; fume extraction&quot;
@@ -222,10 +222,10 @@ export default function DemoClient() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 13l-7 7-7-7" />
             </svg>
             <span className="font-semibold">
-              Results Output Area
+              Results:
             </span>
             <span className="text-sky-700 font-normal hidden sm:inline">
-              — Products are matched to your search using AI, with related products and catalogue categories connected to improve the results. Each result shows a match score based on its similarity to your search.
+              Products are matched to your search using AI, with related products and catalogue categories connected to improve the results. Each result shows a match score based on its similarity to your search.
             </span>
           </div>
           <span className="font-mono text-[10px] bg-sky-200/60 px-2 py-0.5 rounded text-sky-800 font-semibold">
@@ -257,9 +257,6 @@ export default function DemoClient() {
                   </svg>
                 </div>
                 <h4 className="text-sm font-bold text-slate-800 mb-1">No Query Executed Yet</h4>
-                <p className="text-xs text-slate-500 max-w-xs mx-auto">
-                  Type a concept above or click a preset to trigger the semantic processing pipeline.
-                </p>
               </div>
             )}
 
