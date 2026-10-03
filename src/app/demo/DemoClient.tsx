@@ -97,7 +97,7 @@ export default function DemoClient() {
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans antialiased selection:bg-sky-100 selection:text-sky-900">
       <div className="max-w-6xl mx-auto px-4 py-6">
 
-        {/* 1. Header Bar */}
+        {/* Header Bar */}
         <header className="bg-white border border-slate-200/80 rounded-xl px-5 py-3.5 mb-6 flex flex-wrap items-center justify-between gap-4 shadow-sm">
           <div className="flex items-center gap-3">
             <h1 className="text-base font-extrabold tracking-tight text-slate-900">
@@ -124,7 +124,7 @@ export default function DemoClient() {
           </div>
         </header>
 
-        {/* 2. Search Bar & Presets */}
+        {/* Search Bar & Presets */}
         <section className="bg-white border border-slate-200 rounded-2xl p-5 mb-6 shadow-sm space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 mb-4 border-b border-slate-100 gap-2">
             <div>
@@ -134,13 +134,13 @@ export default function DemoClient() {
               </h2>
               <ul className="mt-3 space-y-2.5 text-sm text-slate-600 list-disc list-inside leading-relaxed">
                 <li>
-                  <strong className="text-slate-800">Intent Matching:</strong> Products are matched to your search terms using AI, rather than simple keyword matching that can return zero results.
+                  <strong className="text-sm text-slate-800">Intent Matching:</strong> Products are matched to your search terms using AI, rather than simple keyword matching that can return zero results.
                 </li>
                 <li>
-                  <strong className="text-slate-800">Connected Catalog Context:</strong> Related products, catalogue categories, and articles are connected to improve the results.
+                  <strong className="text-sm text-slate-800">Connected Catalog Context:</strong> Related products, catalogue categories, and articles are connected to improve the results.
                 </li>
                 <li>
-                  <strong className="text-slate-800">Similarity Scoring:</strong> Each result shows a match score based on its similarity to your search.
+                  <strong className="text-sm text-slate-800">Similarity Scoring:</strong> Each result shows a match score based on its similarity to your search.
                 </li>
               </ul> 
             </div>
@@ -189,7 +189,7 @@ export default function DemoClient() {
           </div>
         </section>
 
-        {/* 3. Query Results Section */}
+        {/* Query Results Section */}
         <section className="mb-6 space-y-4">
           <div id="results-anchor" className="flex items-center justify-between bg-sky-50/80 border border-sky-200/80 rounded-xl px-4 py-2.5 text-xs text-sky-900">
             <div className="flex items-center gap-2">
@@ -273,7 +273,39 @@ export default function DemoClient() {
           </div>
         </section>
 
-        {/* 4. Visual Pipeline & Engine Diagnostics Combined Section */}
+        {/* Visual Pipeline & Engine Diagnostics Combined Section */}
+        {/* Pipeline Status Banner */}
+          <div className="flex items-center justify-between bg-sky-50/80 border border-sky-200/80 rounded-xl px-4 py-2.5 mb-6 text-xs text-sky-900">
+            <div className="flex items-center gap-2">
+              {/* Animated Processing Cog Icon */}
+              <svg 
+                className={`w-4 h-4 text-sky-600 ${loading ? 'animate-spin' : ''}`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth="2" 
+                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" 
+                />
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth="2" 
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" 
+                />
+              </svg>
+              <span className="font-semibold">
+                System Workflow &amp; Live Pipeline:
+              </span>
+            </div>
+
+            <span className="font-mono text-[10px] bg-sky-200/60 px-2 py-0.5 rounded text-sky-800 font-semibold">
+              {loading ? 'Processing Search Step...' : hasSearched ? 'Pipeline Execution Complete' : 'Pipeline Ready'}
+            </span>
+          </div>
         <section className="bg-white border border-slate-200 rounded-2xl p-6 mb-6 shadow-sm">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             
@@ -307,8 +339,8 @@ export default function DemoClient() {
                       )}
                     </div>
                     <h3 className="text-xs font-bold text-slate-900 mt-2 mb-0.5">{step.title}</h3>
-                    <p className="text-[11px] font-mono text-sky-700 font-medium mb-1">{step.tech}</p>
-                    <p className="text-[11px] text-slate-500 leading-tight">{step.desc}</p>
+                    <p className="text-xs font-mono text-sky-700 font-medium mb-1">{step.tech}</p>
+                    <p className="text-xs text-slate-500 leading-tight">{step.desc}</p>
                   </div>
                 );
               })}
@@ -321,21 +353,21 @@ export default function DemoClient() {
               </h3>
 
               <div>
-                <span className="text-[11px] text-slate-500 font-medium block mb-1">Embedding Model</span>
+                <span className="text-xs text-slate-500 font-medium block mb-1">Embedding Model</span>
                 <span className="text-xs font-mono bg-white border border-slate-200 text-sky-700 px-2.5 py-1 rounded block font-semibold">
                   text-embedding-3-small (1536)
                 </span>
               </div>
 
               <div>
-                <span className="text-[11px] text-slate-500 font-medium block mb-1">Vector Index</span>
+                <span className="text-xs text-slate-500 font-medium block mb-1">Vector Index</span>
                 <span className="text-xs font-mono bg-white border border-slate-200 text-slate-800 px-2.5 py-1 rounded block font-semibold">
                   Pinecone (Cosine Distance)
                 </span>
               </div>
 
               <div>
-                <span className="text-[11px] text-slate-500 font-medium block mb-1">CMS Synchronisation</span>
+                <span className="text-xs text-slate-500 font-medium block mb-1">CMS Synchronisation</span>
                 <div className="flex items-center gap-2 bg-white border border-slate-200 px-2.5 py-1 rounded">
                   <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
                   <span className="text-xs text-slate-800 font-medium">Sanity Webhooks Active</span>
@@ -344,7 +376,7 @@ export default function DemoClient() {
 
               {hasSearched && !loading && (
                 <div className="border-t border-slate-200 pt-3">
-                  <span className="text-[11px] text-slate-500 font-medium block mb-1.5">Latency Breakdown</span>
+                  <span className="text-xs text-slate-500 font-medium block mb-1.5">Latency Breakdown</span>
                   <div className="text-xs font-mono text-slate-600 space-y-1 bg-white p-2.5 rounded border border-slate-200">
                     <div className="flex justify-between"><span>Embedding:</span> <span className="text-sky-700 font-semibold">{latency.embedding} ms</span></div>
                     <div className="flex justify-between"><span>Vector Match:</span> <span className="text-sky-700 font-semibold">{latency.vector} ms</span></div>
