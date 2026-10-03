@@ -295,20 +295,6 @@ export default function DemoClient() {
         {/* CONDITIONALLY REVEALED TECHNICAL SECTIONS */}
         {showTechnicalDetails && (
           <div className="space-y-6 transition-all duration-500 ease-in-out border-t border-slate-200 pt-8 mt-8">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="text-[10px] font-mono font-bold text-sky-700 uppercase tracking-wider bg-sky-50 border border-sky-200 px-2.5 py-0.5 rounded-full inline-block mb-1">
-                  Technical Insights
-                </span>
-                <h3 className="text-lg font-bold text-slate-900">System Architecture & Pipeline Diagnostics</h3>
-              </div>
-              <button
-                onClick={() => setShowTechnicalDetails(false)}
-                className="text-xs text-slate-500 hover:text-slate-800 underline"
-              >
-                Hide Breakdown
-              </button>
-            </div>
 
             {/* Pipeline Status Banner */}
             <div className="flex items-center justify-between bg-sky-50/80 border border-sky-200/80 rounded-xl px-4 py-2.5 text-xs text-sky-900">
