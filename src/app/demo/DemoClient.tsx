@@ -168,7 +168,7 @@ export default function DemoClient() {
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => runPreset('Chemical storage fume extraction systems')}
-                className="text-[13px] bg-slate-100 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-medium transition-all"
+                className="text-[13px] bg-amber-200 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-medium transition-all"
               >
                 "Chemical storage fume extraction"
               </button>
@@ -180,23 +180,39 @@ export default function DemoClient() {
               </button>
               <button
                 onClick={() => runPreset('Custom modular lab furniture and ESD workbench setup')}
-                className="text-[13px] bg-slate-100 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-medium transition-all"
+                className="text-[13px] bg-amber-200 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-medium transition-all"
               >
                 "Modular lab furniture"
               </button>
             </div>
-            <div>
-            <button
-              onClick={() => setShowTechnicalDetails(!showTechnicalDetails)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-colors shadow-sm"
-            >
-              <svg className="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-              </svg>
-              <span>{showTechnicalDetails ? 'Hide architecture' : 'Show architecture'}</span>
-            </button>
-            </div>
           </div>
+        </section>
+
+        <section>
+          <div>
+              <button
+                onClick={() => setShowTechnicalDetails(!showTechnicalDetails)}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-slate-900 hover:bg-violet-700 border border-slate-700 hover:border-violet-600 transition-colors shadow-sm"
+              >
+                <svg
+                  className="w-3.5 h-3.5 text-violet-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                  />
+                </svg>
+
+                <span className="font-semibold">
+                  {showTechnicalDetails ? 'Hide architecture' : 'Show architecture'}
+                </span>
+              </button>
+            </div>
         </section>
 
         {/* Results Container */}
