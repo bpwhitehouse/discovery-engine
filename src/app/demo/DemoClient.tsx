@@ -145,7 +145,7 @@ export default function DemoClient() {
         <section className="bg-white border border-slate-200 rounded-2xl p-6 mb-6 shadow-sm space-y-4">
           <div className="max-w-2xl">
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full inline-block mb-3">
-              Production Catalog Intelligence
+              Product Catalog Intelligence
             </span>
             <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight leading-snug">
               Find laboratory equipment with natural language intent
