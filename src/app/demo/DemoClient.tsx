@@ -143,7 +143,7 @@ export default function DemoClient() {
 
         {/* Clean Production Hero & Search */}
         <section className="bg-white border border-slate-200 rounded-2xl p-6 mb-6 shadow-sm space-y-4">
-          <div className="max-w-2xl">
+          <div>
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full inline-block mb-3">
               Product Catalog Intelligence
             </span>
@@ -151,7 +151,7 @@ export default function DemoClient() {
               Find laboratory equipment with natural language intent
             </h2>
             <p className="text-sm text-slate-600 mt-2 leading-relaxed">
-              Query complex equipment specifications, safety standards, and modular bench configurations without needing exact SKU keyword matches.
+              Query complex equipment specifications, safety standards, and modular bench configurations <strong></>without needing exact keyword matches</strong>.
             </p>
           </div>
           
@@ -177,19 +177,19 @@ export default function DemoClient() {
             <span className="text-slate-500 font-semibold text-[13px]">Suggested searches:</span>
             <div className="flex flex-wrap gap-2">
               <button
-                onClick={() => runPreset('Chemical storage fume extraction systems')}
+                onClick={() => runPreset('"Chemical storage fume extraction systems"')}
                 className="text-[13px] bg-slate-100 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-medium transition-all"
               >
                 Chemical storage fume extraction
               </button>
               <button
-                onClick={() => runPreset('High-precision analytical balances and laboratory instruments')}
+                onClick={() => runPreset('"High-precision analytical balances and laboratory instruments"')}
                 className="text-[13px] bg-slate-100 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-medium transition-all"
               >
                 Precision balances
               </button>
               <button
-                onClick={() => runPreset('Custom modular lab furniture and ESD workbench setup')}
+                onClick={() => runPreset('"Custom modular lab furniture and ESD workbench setup"')}
                 className="text-[13px] bg-slate-100 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-medium transition-all"
               >
                 Modular lab furniture
