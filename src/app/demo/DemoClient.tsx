@@ -204,8 +204,8 @@ export default function DemoClient() {
         </div>
 
         {/* Results & Diagnostics Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
-          <div className="lg:col-span-2 space-y-4">
+        <div>
+          <div className="space-y-4">
             {loading && (
               <div className="bg-white border border-slate-200 rounded-xl p-8 text-center animate-pulse shadow-sm">
                 <div className="inline-block h-6 w-6 rounded-full border-2 border-sky-600 border-t-transparent animate-spin mb-3"></div>
@@ -274,7 +274,7 @@ export default function DemoClient() {
 
         {/* Visual Pipeline */}
         <section className="bg-white border border-slate-200 rounded-2xl p-5 mb-6 shadow-sm">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div>
             {pipelineSteps.map((step, idx) => {
               const isActive = activeStep === idx + 1;
               const isDone = activeStep > idx + 1;
