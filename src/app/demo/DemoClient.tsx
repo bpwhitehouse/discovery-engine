@@ -133,36 +133,24 @@ export default function DemoClient() {
 
         {/* Clean Production Hero & Search */}
         <section className="bg-white border border-slate-200 rounded-2xl p-6 mb-6 shadow-sm space-y-4">
-          <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full inline-block mb-3">
+          <div className="flex items-center justify-between gap-4">
+            <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full inline-block">
               Product Catalog Intelligence
             </span>
-            <span>
-              <div>
-              <button
-                onClick={() => setShowTechnicalDetails(!showTechnicalDetails)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-slate-900 hover:bg-violet-700 border border-slate-700 hover:border-violet-600 transition-colors shadow-sm"
-              >
-                <svg
-                  className="w-3.5 h-3.5 text-violet-300"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-                  />
-                </svg>
 
-                <span className="font-semibold">
-                  {showTechnicalDetails ? 'Hide architecture' : 'Show architecture'}
-                </span>
-              </button>
-            </div>
-            </span>
+            {/* Architecture Toggle Button */}
+            <button
+              onClick={() => setShowTechnicalDetails(!showTechnicalDetails)}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-900 hover:text-white bg-slate-100 hover:bg-slate-900 border border-slate-300 hover:border-slate-800 transition-colors shadow-sm"
+            >
+              <svg className="w-3.5 h-3.5 text-slate-600 hover:text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+              </svg>
+              <span>{showTechnicalDetails ? 'Hide Architecture' : 'Show Architecture'}</span>
+            </button>
+          </div>
+
+          <div>
             <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight leading-snug">
               Find laboratory equipment with natural language intent
             </h2>
