@@ -151,7 +151,7 @@ export default function DemoClient() {
               Find laboratory equipment with natural language intent
             </h2>
             <p className="text-sm text-slate-600 mt-2 leading-relaxed">
-              Query complex equipment specifications, safety standards, and modular bench configurations <strong></>without needing exact keyword matches</strong>.
+              Query complex equipment specifications, safety standards, and modular bench configurations <em>without needing exact keyword matches</em>.
             </p>
           </div>
           
@@ -177,22 +177,22 @@ export default function DemoClient() {
             <span className="text-slate-500 font-semibold text-[13px]">Suggested searches:</span>
             <div className="flex flex-wrap gap-2">
               <button
-                onClick={() => runPreset('"Chemical storage fume extraction systems"')}
+                onClick={() => runPreset('Chemical storage fume extraction systems')}
                 className="text-[13px] bg-slate-100 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-medium transition-all"
               >
-                Chemical storage fume extraction
+                "Chemical storage fume extraction"
               </button>
               <button
-                onClick={() => runPreset('"High-precision analytical balances and laboratory instruments"')}
+                onClick={() => runPreset('High-precision analytical balances and laboratory instruments')}
                 className="text-[13px] bg-slate-100 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-medium transition-all"
               >
-                Precision balances
+                "Precision balances"
               </button>
               <button
-                onClick={() => runPreset('"Custom modular lab furniture and ESD workbench setup"')}
+                onClick={() => runPreset('Custom modular lab furniture and ESD workbench setup')}
                 className="text-[13px] bg-slate-100 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-medium transition-all"
               >
-                Modular lab furniture
+                "Modular lab furniture"
               </button>
             </div>
           </div>
