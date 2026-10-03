@@ -120,16 +120,6 @@ export default function DemoClient() {
 
           {/* Mode Switcher Badge */}
           <div className="flex items-center gap-3 text-xs">
-            <button
-              onClick={() => setShowTechnicalDetails(!showTechnicalDetails)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-colors shadow-sm"
-            >
-              <svg className="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-              </svg>
-              <span>{showTechnicalDetails ? 'Hide Architecture' : 'Inspect Architecture'}</span>
-            </button>
-
             <a
               href="https://www.linkedin.com/in/bpwhitehouse"
               target="_blank"
@@ -184,7 +174,7 @@ export default function DemoClient() {
               </button>
               <button
                 onClick={() => runPreset('High-precision analytical balances and laboratory instruments')}
-                className="text-[13px] bg-slate-100 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-medium transition-all"
+                className="text-[13px] bg-amber-200 hover:bg-sky-50 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-lg font-medium transition-all"
               >
                 "Precision balances"
               </button>
@@ -194,6 +184,17 @@ export default function DemoClient() {
               >
                 "Modular lab furniture"
               </button>
+            </div>
+            <div>
+            <button
+              onClick={() => setShowTechnicalDetails(!showTechnicalDetails)}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-colors shadow-sm"
+            >
+              <svg className="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+              </svg>
+              <span>{showTechnicalDetails ? 'Hide architecture' : 'Show architecture'}</span>
+            </button>
             </div>
           </div>
         </section>
