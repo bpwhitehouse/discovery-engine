@@ -191,7 +191,7 @@ export default function DemoClient() {
 
         {/* Query Results Section */}
         <section className="mb-6 space-y-4">
-          <div id="results-anchor" className="flex items-center justify-between bg-sky-50/80 border border-sky-200/80 rounded-xl px-4 py-2.5 text-xs text-sky-900">
+          <div id="results-anchor" className="flex items-center justify-between bg-green-50/80 border border-sky-200/80 rounded-xl px-4 py-2.5 text-xs text-sky-900">
             <div className="flex items-center gap-2">
               <svg className="w-4 h-4 text-sky-600 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 13l-7 7-7-7" />
