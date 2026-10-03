@@ -103,6 +103,7 @@ export default function DemoClient() {
             <h1 className="text-base font-extrabold tracking-tight text-slate-900">
               Benjamin Whitehouse
             </h1>
+            <a href="https://www.bpwhitehouse.com">bpwhitehouse.com</a>
             <span className="text-slate-300">|</span>
             <span className="text-xs font-semibold text-sky-700 bg-sky-50 border border-sky-200 px-2.5 py-0.5 rounded-full">
               Product Leader · AI Strategy · Full-stack Foundations
