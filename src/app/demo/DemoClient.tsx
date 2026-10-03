@@ -274,7 +274,7 @@ export default function DemoClient() {
 
         {/* Visual Pipeline */}
         <section className="bg-white border border-slate-200 rounded-2xl p-5 mb-6 shadow-sm">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-12">
             {pipelineSteps.map((step, idx) => {
               const isActive = activeStep === idx + 1;
               const isDone = activeStep > idx + 1;
