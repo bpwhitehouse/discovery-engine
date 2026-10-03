@@ -202,7 +202,6 @@ export default function DemoClient() {
           <span className="font-mono text-[10px] bg-sky-200/60 px-2 py-0.5 rounded text-sky-800 font-semibold">
             {hasSearched ? `${results.length} Matches Found` : 'Awaiting Query'}
           </span>
-        </div>
 
         {/* Results & Diagnostics Grid */}
         <div>
@@ -272,7 +271,6 @@ export default function DemoClient() {
               </div>
             )}
           </div>
-
         {/* Visual Pipeline */}
         <section className="bg-white border border-slate-200 rounded-2xl p-5 mb-6 shadow-sm">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-12">
@@ -307,10 +305,11 @@ export default function DemoClient() {
                   <p className="text-[11px] font-mono text-sky-700 font-medium mb-1">{step.tech}</p>
                   <p className="text-[11px] text-slate-500 leading-tight">{step.desc}</p>
                 </div>
-              );
-            })}
+               );
+             })}
+           </div>
+            </section>
           </div>
-        </section>
 
           {/* Engine Diagnostics Sidebar */}
           <div className="bg-white border border-slate-200 rounded-xl p-4 h-fit space-y-4 shadow-sm">
