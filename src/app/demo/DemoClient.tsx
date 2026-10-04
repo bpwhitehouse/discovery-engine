@@ -1,7 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
+
+const PIPELINE_STEP_COUNT = 4;
+const PIPELINE_STEP_DURATION_MS = 700;
 
 interface SearchResult {
   id: string;
@@ -26,9 +29,25 @@ export default function DemoClient() {
   const [latency, setLatency] = useState<LatencyBreakdown>({ embedding: 0, vector: 0, cms: 0 });
   const [error, setError] = useState<string | null>(null);
   const [activeStep, setActiveStep] = useState(0);
+  const [pipelineRunning, setPipelineRunning] = useState(false);
 
   // Progressive Disclosure State: Controls whether technical breakdown is visible
   const [showTechnicalDetails, setShowTechnicalDetails] = useState(false);
+
+  useEffect(() => {
+    if (!pipelineRunning) return;
+
+    const timeout = window.setTimeout(() => {
+      if (activeStep < PIPELINE_STEP_COUNT) {
+        setActiveStep(activeStep + 1);
+      } else if (!loading) {
+        setActiveStep(PIPELINE_STEP_COUNT + 1);
+        setPipelineRunning(false);
+      }
+    }, PIPELINE_STEP_DURATION_MS);
+
+    return () => window.clearTimeout(timeout);
+  }, [activeStep, loading, pipelineRunning]);
 
   const pipelineSteps = [
     {
@@ -68,6 +87,8 @@ export default function DemoClient() {
     setError(null);
     setHasSearched(true);
     setActiveStep(1);
+    setPipelineRunning(true);
+    setShowTechnicalDetails(true);
 
     try {
       const res = await fetch(`/api/search?q=${encodeURIComponent(activeQuery)}`);
@@ -80,15 +101,12 @@ export default function DemoClient() {
 
       setResults(data.matches || []);
       setLatency(data.latency || { embedding: 0, vector: 0, cms: 0 });
-      setActiveStep(4);
-      
-      // Auto-reveal technical insights after search completes
-      setShowTechnicalDetails(true);
     } catch (err: unknown) {
       console.error('Error fetching search results:', err);
       setError('Failed to fetch dynamic vector results. Please ensure /api/search is active.');
       setResults([]);
       setActiveStep(0);
+      setPipelineRunning(false);
     } finally {
       setLoading(false);
     }
@@ -218,6 +236,48 @@ export default function DemoClient() {
           </div>
         </section>
 
+        {showTechnicalDetails && (
+          <section className="mb-4 rounded-xl border border-slate-200 bg-white p-3 shadow-sm">
+            <div className="mb-2 flex items-center justify-between gap-2 text-xs text-sky-900">
+              <span className="font-semibold">Search pipeline</span>
+              <span className="font-mono text-[10px] text-sky-700">
+                {pipelineRunning ? `Running step ${Math.min(activeStep, PIPELINE_STEP_COUNT)} of ${PIPELINE_STEP_COUNT}` : error ? 'Pipeline failed' : hasSearched ? 'Complete' : 'Ready'}
+              </span>
+            </div>
+            <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+              {pipelineSteps.map((step, idx) => {
+                const isActive = activeStep === idx + 1;
+                const isDone = activeStep > idx + 1;
+
+                return (
+                  <div
+                    key={step.num}
+                    className={`min-w-0 rounded-lg border px-2.5 py-2 transition-all ${
+                      isActive
+                        ? 'bg-sky-50 border-sky-400 ring-1 ring-sky-300'
+                        : isDone
+                        ? 'bg-emerald-50/50 border-emerald-300'
+                        : 'bg-slate-50 border-slate-200'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-1">
+                      <span className={`text-[10px] font-mono font-bold px-1 py-0.5 rounded ${
+                        isActive ? 'bg-sky-600 text-white' : isDone ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-600'
+                      }`}>
+                        {step.num}
+                      </span>
+                      {step.time && <span className="truncate text-[10px] font-mono text-slate-600">{step.time}</span>}
+                    </div>
+                    <h3 className="mt-1 truncate text-[11px] font-bold text-slate-900">{step.title}</h3>
+                    <p className="truncate text-[10px] font-mono text-sky-700">{step.tech}</p>
+                    <p className="line-clamp-1 text-[10px] leading-3 text-slate-500">{step.desc}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
         {/* Results Container */}
         <section className="mb-6 space-y-4">
           <div id="results-anchor" className="flex items-center justify-between bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-800 shadow-sm">
@@ -262,9 +322,9 @@ export default function DemoClient() {
             )}
 
             {!loading && results.length > 0 && (
-              <div className="space-y-4">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {results.map((item, index) => (
-                  <div key={item.id} className="bg-white border border-slate-200 rounded-xl p-5 space-y-3 shadow-sm hover:border-sky-300 transition-all">
+                  <div key={item.id} className="bg-white border border-slate-200 rounded-xl p-3 space-y-2 shadow-sm hover:border-sky-300 transition-all">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <span className="text-[10px] font-mono font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded">
@@ -275,8 +335,8 @@ export default function DemoClient() {
                         </span>
                       </div>
                     </div>
-                    <h4 className="text-base font-bold text-slate-900">{item.title}</h4>
-                    <p className="text-xs text-slate-600 leading-relaxed">
+                    <h4 className="text-sm font-bold text-slate-900">{item.title}</h4>
+                    <p className="line-clamp-2 text-xs text-slate-600 leading-relaxed">
                       {item.description}
                     </p>
                     {item.tags && item.tags.length > 0 && (
@@ -298,102 +358,44 @@ export default function DemoClient() {
         {/* CONDITIONALLY REVEALED TECHNICAL SECTIONS */}
         {showTechnicalDetails && (
           <div className="space-y-6 transition-all duration-500 ease-in-out border-t border-slate-200 pt-8 mt-8">
+            <section className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+              <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 h-fit space-y-4">
+                <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200 pb-2">
+                  Engine Diagnostics
+                </h3>
 
-            {/* Pipeline Status Banner */}
-            <div className="flex items-center justify-between bg-sky-50/80 border border-sky-200/80 rounded-xl px-4 py-2.5 text-xs text-sky-900">
-              <div className="flex items-center gap-2">
-                <svg className={`w-4 h-4 text-sky-600 ${loading ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <span className="font-semibold">System Workflow & Live Pipeline:</span>
-              </div>
-              <span className="font-mono text-[10px] bg-sky-200/60 px-2 py-0.5 rounded text-sky-800 font-semibold">
-                {loading ? 'Processing Search Step...' : hasSearched ? 'Pipeline Execution Complete' : 'Pipeline Ready'}
-              </span>
-            </div>
-
-            {/* Pipeline Cards & Diagnostics Grid */}
-            <section className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                
-                {/* 4 Pipeline Steps */}
-                <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {pipelineSteps.map((step, idx) => {
-                    const isActive = activeStep === idx + 1;
-                    const isDone = activeStep > idx + 1;
-
-                    return (
-                      <div
-                        key={step.num}
-                        className={`p-4 rounded-xl border transition-all ${
-                          isActive
-                            ? 'bg-sky-50/80 border-sky-400 shadow-sm ring-1 ring-sky-300'
-                            : isDone
-                            ? 'bg-emerald-50/50 border-emerald-300'
-                            : 'bg-slate-50/60 border-slate-200'
-                        }`}
-                      >
-                        <div className="flex items-center justify-between mb-1">
-                          <span className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded ${
-                            isActive ? 'bg-sky-600 text-white' : isDone ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-600'
-                          }`}>
-                            {step.num}
-                          </span>
-                          {step.time && (
-                            <span className="text-[10px] font-mono bg-white px-1.5 py-0.5 rounded text-slate-700 border border-slate-200 font-medium">
-                              {step.time}
-                            </span>
-                          )}
-                        </div>
-                        <h3 className="text-xs font-bold text-slate-900 mt-2 mb-0.5">{step.title}</h3>
-                        <p className="text-[11px] font-mono text-sky-700 font-medium mb-1">{step.tech}</p>
-                        <p className="text-[11px] text-slate-500 leading-tight">{step.desc}</p>
-                      </div>
-                    );
-                  })}
+                <div>
+                  <span className="text-[11px] text-slate-500 font-medium block mb-1">Embedding Model</span>
+                  <span className="text-xs font-mono bg-white border border-slate-200 text-sky-700 px-2.5 py-1 rounded block font-semibold">
+                    text-embedding-3-small (1536)
+                  </span>
                 </div>
 
-                {/* Diagnostics Sidebar */}
-                <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 h-fit space-y-4">
-                  <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200 pb-2">
-                    Engine Diagnostics
-                  </h3>
-
-                  <div>
-                    <span className="text-[11px] text-slate-500 font-medium block mb-1">Embedding Model</span>
-                    <span className="text-xs font-mono bg-white border border-slate-200 text-sky-700 px-2.5 py-1 rounded block font-semibold">
-                      text-embedding-3-small (1536)
-                    </span>
-                  </div>
-
-                  <div>
-                    <span className="text-[11px] text-slate-500 font-medium block mb-1">Vector Index</span>
-                    <span className="text-xs font-mono bg-white border border-slate-200 text-slate-800 px-2.5 py-1 rounded block font-semibold">
-                      Pinecone (Cosine Distance)
-                    </span>
-                  </div>
-
-                  <div>
-                    <span className="text-[11px] text-slate-500 font-medium block mb-1">CMS Synchronisation</span>
-                    <div className="flex items-center gap-2 bg-white border border-slate-200 px-2.5 py-1 rounded">
-                      <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                      <span className="text-xs text-slate-800 font-medium">Sanity Webhooks Active</span>
-                    </div>
-                  </div>
-
-                  {hasSearched && !loading && (
-                    <div className="border-t border-slate-200 pt-3">
-                      <span className="text-[11px] text-slate-500 font-medium block mb-1.5">Latency Breakdown</span>
-                      <div className="text-xs font-mono text-slate-600 space-y-1 bg-white p-2.5 rounded border border-slate-200">
-                        <div className="flex justify-between"><span>Embedding:</span> <span className="text-sky-700 font-semibold">{latency.embedding} ms</span></div>
-                        <div className="flex justify-between"><span>Vector Match:</span> <span className="text-sky-700 font-semibold">{latency.vector} ms</span></div>
-                        <div className="flex justify-between"><span>CMS Hydrate:</span> <span className="text-sky-700 font-semibold">{latency.cms} ms</span></div>
-                      </div>
-                    </div>
-                  )}
+                <div>
+                  <span className="text-[11px] text-slate-500 font-medium block mb-1">Vector Index</span>
+                  <span className="text-xs font-mono bg-white border border-slate-200 text-slate-800 px-2.5 py-1 rounded block font-semibold">
+                    Pinecone (Cosine Distance)
+                  </span>
                 </div>
 
+                <div>
+                  <span className="text-[11px] text-slate-500 font-medium block mb-1">CMS Synchronisation</span>
+                  <div className="flex items-center gap-2 bg-white border border-slate-200 px-2.5 py-1 rounded">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span className="text-xs text-slate-800 font-medium">Sanity Webhooks Active</span>
+                  </div>
+                </div>
+
+                {hasSearched && !loading && (
+                  <div className="border-t border-slate-200 pt-3">
+                    <span className="text-[11px] text-slate-500 font-medium block mb-1.5">Latency Breakdown</span>
+                    <div className="text-xs font-mono text-slate-600 space-y-1 bg-white p-2.5 rounded border border-slate-200">
+                      <div className="flex justify-between"><span>Embedding:</span> <span className="text-sky-700 font-semibold">{latency.embedding} ms</span></div>
+                      <div className="flex justify-between"><span>Vector Match:</span> <span className="text-sky-700 font-semibold">{latency.vector} ms</span></div>
+                      <div className="flex justify-between"><span>CMS Hydrate:</span> <span className="text-sky-700 font-semibold">{latency.cms} ms</span></div>
+                    </div>
+                  </div>
+                )}
               </div>
             </section>
 
