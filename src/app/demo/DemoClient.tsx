@@ -167,11 +167,11 @@ export default function DemoClient() {
             <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight leading-snug">
               Find laboratory equipment with natural language intent
             </h2>
-            <p className="text-sm text-slate-600 mt-2 leading-relaxed">
-              Query complex equipment specifications, safety standards, and modular bench configurations <em>without needing exact keyword matches</em>.
-            </p>
             <p>
               A prototype exploring what AI-powered search can do for catalogue-heavy products.
+            </p>
+            <p className="text-sm text-slate-600 mt-2 leading-relaxed">
+              Query complex equipment specifications, safety standards, and modular bench configurations <em>without needing exact keyword matches</em>.
             </p>
           </div>
           
