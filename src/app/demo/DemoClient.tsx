@@ -135,7 +135,7 @@ export default function DemoClient() {
         <section className="bg-white border border-slate-200 rounded-2xl p-6 mb-6 shadow-sm space-y-4">
           <div className="flex items-center justify-between gap-4">
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full inline-block">
-              Product Catalog Intelligence
+              Live Prototype
             </span>
 
             {/* Architecture Toggle Button */}
@@ -169,6 +169,9 @@ export default function DemoClient() {
             </h2>
             <p className="text-sm text-slate-600 mt-2 leading-relaxed">
               Query complex equipment specifications, safety standards, and modular bench configurations <em>without needing exact keyword matches</em>.
+            </p>
+            <p>
+              A prototype exploring what AI-powered search can do for catalogue-heavy products.
             </p>
           </div>
           
